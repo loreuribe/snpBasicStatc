@@ -369,8 +369,8 @@ public class Procesamiento {
             System.out.print("SNP"+(i+1)+","+(j+1)+ "  ");
             AlelosConjuntosSNP aleconj= new AlelosConjuntosSNP(snp.get(i).frecuenciasAlelicasCasosAleloMayorFr(),snp.get(j).frecuenciasAlelicasCasosAleloMayorFr(),snp.get(i).frecuenciasAlelicasCasosAleloMayorFr(),snp.get(j).frecuenciasAlelicasCasosAleloMenorFr(),i,j);
             aleconj.setArregloSNP(snp);
-            aleconj.linkageDisequilibrium();
-            System.out.println("LD          ="   +   aleconj.LD);
+            double LD=aleconj.linkageDisequilibrium();
+            System.out.println("LD          ="   +  LD);
             System.out.println("DMax        =" + aleconj.DMax);
             System.out.println("Person Coef ="+aleconj.Pearsoncoefficientofcorrelation());
             System.out.println(aleconj.AlelosConjuntosChiCuadrado(snp.get(i).ConteoAlelosMayorFrCasos(), snp.get(i).ConteoAlelosMenorFrCasos(), snp.get(j).ConteoAlelosMayorFr(), snp.get(j).ConteoAlelosMenorFrCasos()));
