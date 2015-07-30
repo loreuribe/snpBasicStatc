@@ -49,7 +49,9 @@ public class AlelosConjuntosSNP {
         double p12=mayorP1*menorQ1;
         double p21=menorP1*mayorQ1;
         
-        this.LD= p11*p22-(p12*p21);
+        System.out.println("Imprimir (p11*p22-(p12*p21) "+ ((p11*p22)-(p12*p21)));
+        
+        this.LD= (double)((p11*p22)-(p12*p21));
         
         if(LD>0)
           this.DMax=   Math.min(p12, p21);
@@ -69,6 +71,8 @@ public class AlelosConjuntosSNP {
       
      public double Pearsoncoefficientofcorrelation()
      {
+         System.out.println("Multiplicación de alelos="+(mayorP1*mayorQ1*menorP1*menorQ1));
+           
           personCoefCor=this.LD/Math.sqrt(mayorP1*mayorQ1*menorP1*menorQ1);
           
           return Math.pow(personCoefCor, 2);

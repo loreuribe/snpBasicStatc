@@ -1,17 +1,24 @@
-package snpBasicStatc;
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package snpBasicStatcPedFiles;
 
-import snpBasicStatcPedFiles.FuncionesPed;
-import com.sun.tracing.dtrace.ArgsAttributes;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import snpBasicStatc.Funciones;
+import snpBasicStatc.Gen;
+import snpBasicStatc.SNP;
 
 /**
- *  Análisis descriptivo de un polimorfismo
+ *
+ * @author Loena
  */
-
-public class ProcesarEstructura{
-      
+public class ProcesarEstructuraPed {
+    
+       
     /** 
      * Arreglo de genes guardado en un array list
      */
@@ -22,9 +29,11 @@ public class ProcesarEstructura{
     int aceptar;
     
    //Constructor
-    public ProcesarEstructura() {
+    public ProcesarEstructuraPed() {
         //Funciones funciones=new Funciones();
-        Funciones funciones=new Funciones();
+        FuncionesPed funciones=new FuncionesPed();
+        
+        
         
         arregloSNP=new ArrayList<SNP>();
         choser = new JFileChooser();
@@ -88,6 +97,8 @@ public class ProcesarEstructura{
         for(int i=0; i<snp.length; i++)
         { 
             tempsnp= new SNP();
+                if(snp[i].size()==4)
+                {    
                     j=0;
                     tempsnp.homocigotoMayorFr=(Gen)snp[i].get(j);
                     j++;
@@ -100,7 +111,22 @@ public class ProcesarEstructura{
                     
                     tempsnp.NA=(Gen)snp[i].get(j);
                     j++;
-                
+                }
+             
+                if(snp[i].size()==3)
+                {
+                    j=0;
+                    tempsnp.homocigotoMayorFr=(Gen)snp[i].get(j);
+                    j++;
+                   
+                    tempsnp.heterocigoto=(Gen)snp[i].get(j);
+                    j++;
+                    
+                    tempsnp.homocigotoMenorFr=snp[i].get(j);
+                    j++;
+                    
+                }
+ 
                 arregloSNP.add(tempsnp);
         }
 
@@ -138,24 +164,24 @@ public class ProcesarEstructura{
         {
             
             //Ordena en su posición los NA
-            if(arregloSNP.get(i).homocigotoMayorFr.getTipo().contains("NA"))
-            
+            //if(arregloSNP.get(i).homocigotoMayorFr.getTipo().contains("NA"))
+            if(arregloSNP.get(i).homocigotoMayorFr.getTipo().contains("0/0"))
             {
                 Gen tempSNP = arregloSNP.get(i).homocigotoMayorFr;
                 arregloSNP.get(i).homocigotoMayorFr=arregloSNP.get(i).NA;
                 arregloSNP.get(i).NA= tempSNP;
                 
             }
-            if(arregloSNP.get(i).homocigotoMenorFr.getTipo().contains("NA"))
-            
+            //if(arregloSNP.get(i).homocigotoMenorFr.getTipo().contains("NA"))
+            if(arregloSNP.get(i).homocigotoMenorFr.getTipo().contains("0/0"))
             {
                 Gen tempSNP = arregloSNP.get(i).homocigotoMenorFr;
                 arregloSNP.get(i).homocigotoMenorFr=arregloSNP.get(i).NA;
                 arregloSNP.get(i).NA= tempSNP;
                 
             }
-            if(arregloSNP.get(i).heterocigoto.getTipo().contains("NA"))
-            
+            //if(arregloSNP.get(i).heterocigoto.getTipo().contains("NA"))
+            if(arregloSNP.get(i).heterocigoto.getTipo().contains("0/0"))
             {
                 Gen tempSNP = arregloSNP.get(i).heterocigoto;
                 arregloSNP.get(i).heterocigoto=arregloSNP.get(i).NA;
@@ -188,10 +214,11 @@ public class ProcesarEstructura{
 
         
     }
+    
+    
+    public static void main(String[] args) {
+        ProcesarEstructuraPed ped = new ProcesarEstructuraPed();
+        //ped.organizarSNP();
         
-     
-
-    
-    
-    
+    }
 }
