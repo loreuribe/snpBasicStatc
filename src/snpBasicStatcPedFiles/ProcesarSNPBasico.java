@@ -12,7 +12,7 @@ import snpBasicStatc.SNP;
  *
  * @author Loena
  */
-public class ProcesarSNPBasico implements Runnable
+public class ProcesarSNPBasico extends Thread
 {
     int casohombre;
     int casomujer;
@@ -72,7 +72,7 @@ public class ProcesarSNPBasico implements Runnable
                             
                         }
                         
-                    System.out.println("Hilo "+ j);
+                    //System.out.println("Hilo "+ j);
                     snpArray.add(temposnp);
               
                     

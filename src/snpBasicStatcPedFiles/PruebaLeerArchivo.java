@@ -10,6 +10,8 @@ import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import snpBasicStatc.Gen;
 import snpBasicStatc.SNP;
 
@@ -52,6 +54,7 @@ public class PruebaLeerArchivo {
             {
                 System.out.println("Error: F1 "+ex.getLocalizedMessage());
                 ex.printStackTrace();
+                System.exit(0);
             }             
       
       
@@ -100,12 +103,41 @@ public class PruebaLeerArchivo {
                  if(snpArray.isEmpty())
                  {
                     
-                    for(int j=6;j<j+8;j+=8)
+                    for(int j=6;j<fileDetail.length;j++)
                     {
-                        ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa.run();
                         
+                        ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+1, fileDetail,snpArray);
+                        proceBa.start();
+                        ProcesarSNPBasico proceBa1 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+2, fileDetail,snpArray);
+                        proceBa1.start();
+                        ProcesarSNPBasico proceBa2 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+3, fileDetail,snpArray);
+                        proceBa2.start();
+                        ProcesarSNPBasico proceBa3 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+4, fileDetail,snpArray);
+                        proceBa3.start();
+                        ProcesarSNPBasico proceBa4 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+5, fileDetail,snpArray);
+                        proceBa4.start();
+                        ProcesarSNPBasico proceBa5 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+6, fileDetail,snpArray);
+                        proceBa5.start();
+                        ProcesarSNPBasico proceBa6 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+7, fileDetail,snpArray);
+                        proceBa6.start();
+                        ProcesarSNPBasico proceBa7 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+8, fileDetail,snpArray);
+                        proceBa7.start();
                         
+                        try {
+                            proceBa.join();
+                            proceBa1.join();
+                            proceBa2.join();
+                            proceBa3.join();
+                            proceBa4.join();
+                            proceBa5.join();
+                            proceBa6.join();
+                            proceBa7.join();
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                        System.out.println("j="+j);
+                     /*if(j>fileDetail.length)   
+                         break;*/
                     }         
                 }
                  
