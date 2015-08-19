@@ -135,9 +135,10 @@ public class PruebaLeerArchivo {
                         } catch (InterruptedException ex) {
                             Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
                         }
+                        j+=7;
                         System.out.println("j="+j);
-                     /*if(j>fileDetail.length)   
-                         break;*/
+                        if(j>fileDetail.length)   
+                         break;
                     }         
                 }
                  
