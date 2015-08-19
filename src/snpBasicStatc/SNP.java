@@ -32,7 +32,14 @@ public class SNP {
         this.heterocigoto = heterocigoto;
         this.homocigotoMenorFr = recesivoHomo;
     }
-     public SNP(){}
+     public SNP()
+     {
+          NA= new Gen();
+          heterocigoto = new Gen();
+          homocigotoMenorFr = new Gen();
+          homocigotoMayorFr = new Gen();
+          
+     }
 
      
     /******************************************************************Conteos Alelos - Menory Mayor Frecuencia Todos/casos/controles*******************************/ 
@@ -839,5 +846,12 @@ public class SNP {
      {
          return intervaloConfianzaSup(oddRatioHombreMujerHomoMenorFr(), errorHombreMujeresHomoMenorFr(), 93);
      }
+
+    @Override
+    public String toString() {
+        return "SNP{" + "NA=" + NA.getTipo() + ", homocigotoMayorFr=" + homocigotoMayorFr.getTipo() + ", heterocigoto=" + heterocigoto.getTipo() + ", homocigotoMenorFr=" + homocigotoMenorFr.getTipo() + '}';
+    }
+     
+     
      
 }
