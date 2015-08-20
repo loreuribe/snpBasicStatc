@@ -171,16 +171,15 @@ public class PruebaLeerArchivo {
 {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-        //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
-        pp.leer_Archivo("../doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        //pp.leer_Archivo("../doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
         
         System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
         int cont=0;
-        for(SNP snp : PruebaLeerArchivo.snpArray){
-            
+        for(SNP snp : PruebaLeerArchivo.snpArray)
+        {
             System.out.println(snp.toString()+" Contador= " +cont);
             cont++;
-            
         }
         
                 
