@@ -69,10 +69,15 @@ public class PruebaLeerArchivo {
         fileDetail = linea.split("\t");
         
         int totalSNP=fileDetail.length-6;
-        //System.out.println("Longitud del arreglo split   "+ totalSNP);
-
+        System.out.println("Longitud del arreglo split   "+ totalSNP);
+        int cores = Runtime.getRuntime().availableProcessors();
+        int hilosrestantes=fileDetail.length-(fileDetail.length/cores);
+        
+        System.out.println("numero de nucleos "+cores+"  hilos restantes "+hilosrestantes);
+        
+                
         int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
-      
+        int j=6;
         int i=4;
                     // hombre - control
                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
@@ -103,24 +108,30 @@ public class PruebaLeerArchivo {
                  if(snpArray.isEmpty())
                  {
                     
-                    for(int j=6;j<fileDetail.length;j++)
+                    while(j<fileDetail.length)
                     {
                         
-                        ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+1, fileDetail,snpArray);
+                        ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa.start();
-                        ProcesarSNPBasico proceBa1 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+2, fileDetail,snpArray);
+                        j++;
+                        ProcesarSNPBasico proceBa1 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa1.start();
-                        ProcesarSNPBasico proceBa2 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+3, fileDetail,snpArray);
+                        j++;
+                        ProcesarSNPBasico proceBa2 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa2.start();
-                        ProcesarSNPBasico proceBa3 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+4, fileDetail,snpArray);
+                        j++;
+                        ProcesarSNPBasico proceBa3 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa3.start();
-                        ProcesarSNPBasico proceBa4 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+5, fileDetail,snpArray);
+                        j++;
+                        ProcesarSNPBasico proceBa4 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa4.start();
-                        ProcesarSNPBasico proceBa5 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+6, fileDetail,snpArray);
+                        j++;
+                        ProcesarSNPBasico proceBa5 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa5.start();
-                        ProcesarSNPBasico proceBa6 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+7, fileDetail,snpArray);
+                        j++;
+                        ProcesarSNPBasico proceBa6 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa6.start();
-                        ProcesarSNPBasico proceBa7 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j+8, fileDetail,snpArray);
+                        ProcesarSNPBasico proceBa7 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa7.start();
                         
                         try {
@@ -135,10 +146,13 @@ public class PruebaLeerArchivo {
                         } catch (InterruptedException ex) {
                             Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
                         }
-                        j+=7;
-                        System.out.println("j="+j);
-                        if(j>fileDetail.length)   
+                        
+                        
+                        if(fileDetail.length-j <8)
+                        {
+                            System.out.println("j-fileDetail.length"+(fileDetail.length-j));   
                          break;
+                        }
                     }         
                 }
                  
@@ -157,7 +171,8 @@ public class PruebaLeerArchivo {
 {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        pp.leer_Archivo("../doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
         
         System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
         int cont=0;
