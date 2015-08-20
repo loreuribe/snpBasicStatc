@@ -176,7 +176,7 @@ public class PruebaLeerArchivo {
         
         System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
         int cont=0;
-        for(SNP snp : pp.snpArray){
+        for(SNP snp : PruebaLeerArchivo.snpArray){
             
             System.out.println(snp.toString()+" Contador= " +cont);
             cont++;

@@ -43,7 +43,6 @@ public class ProcesarSNPBasico extends Thread
                         SNP temposnp = new SNP();
                        
                         String tipo=fileDetail[j];
-                        System.out.println("tipo="+tipo);
                         
                         if(!fileDetail[j].substring(0,1).equals(fileDetail[j].substring(2)))
                         {
