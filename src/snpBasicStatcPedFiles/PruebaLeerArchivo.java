@@ -43,11 +43,13 @@ public class PruebaLeerArchivo {
             try {
                 BufferedReader archivo = new BufferedReader(new FileReader(new File(direccion)));
                 String linea;
+                int control=0;
                while((linea=archivo.readLine())!=null)
                {
                     textoArchivo.add(linea+"\n");
-                    procesarLinea(linea);
+                    procesarLinea(linea,control);
                     
+                    control++;
                 }
             }
             catch(Exception ex)
@@ -63,17 +65,17 @@ public class PruebaLeerArchivo {
     
     
     
-    public void procesarLinea (String linea)
+    public synchronized void procesarLinea (String linea, int control)
     {
         //variable compartida por los hilos
         fileDetail = linea.split("\t");
         
-        int totalSNP=fileDetail.length-6;
+       /* int totalSNP=fileDetail.length-6;
         System.out.println("Longitud del arreglo split   "+ totalSNP);
         int cores = Runtime.getRuntime().availableProcessors();
         int hilosrestantes=fileDetail.length-(fileDetail.length/cores);
         
-        System.out.println("numero de nucleos "+cores+"  hilos restantes "+hilosrestantes);
+        System.out.println("numero de nucleos "+cores+"  hilos restantes "+hilosrestantes);*/
         
                 
         int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
@@ -104,10 +106,11 @@ public class PruebaLeerArchivo {
                         
                     }
                     total+=1;
+                    System.out.println("lineas"+control);
                    
-                 if(snpArray.isEmpty())
+                 if(control==0)
                  {
-                    
+                     System.out.println("Entre a procesar SNP");  
                     while(j<fileDetail.length)
                     {
                         
@@ -176,11 +179,11 @@ public class PruebaLeerArchivo {
         
         System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
         int cont=0;
-        for(SNP snp : PruebaLeerArchivo.snpArray)
-        {
-            System.out.println(snp.toString()+" Contador= " +cont);
+        /*for(int i=0;i<PruebaLeerArchivo.snpArray.size();i++)
+        {*/
+            System.out.println(PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1)+" Contador= " +cont);
             cont++;
-        }
+        //}
         
                 
     }
