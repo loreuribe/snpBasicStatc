@@ -147,6 +147,9 @@ public class PruebaLeerArchivo {
                         ProcesarSNPBasico proceBa6 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa6.start();
                         j++;
+                        ProcesarSNPBasico proceBa7 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
+                        proceBa7.start();
+                        j++;
                         
                         try {
                             proceBa.join();
@@ -173,9 +176,40 @@ public class PruebaLeerArchivo {
                 {
                     while(j<fileDetail.length)
                     {
-                        System.out.println("Procesando el resto");  
+                      System.out.println("Procesando el resto");  
                       
                       ProcesarSNPRestoIndividuos  resto =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto.start();
+                      j++;
+                      
+                      ProcesarSNPRestoIndividuos  resto1 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto1.start();
+                      j++;
+                      
+                      ProcesarSNPRestoIndividuos  resto2 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto2.start();
+                      j++;
+                     
+                      ProcesarSNPRestoIndividuos  resto3 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto3.start();
+                      j++;
+                      
+                      ProcesarSNPRestoIndividuos  resto4 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto4.start();
+                      j++;
+                      
+                      ProcesarSNPRestoIndividuos  resto5 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto5.start();
+                      j++;
+                      
+                      ProcesarSNPRestoIndividuos  resto6 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto6.start();
+                      j++;
+                      
+                      ProcesarSNPRestoIndividuos  resto7 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
+                      resto7.start();
+                      j++;
+                      
                     }  
                     
                 }
