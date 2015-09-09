@@ -44,7 +44,7 @@ public class ProcesarSNPRestoIndividuos extends Thread
                        
                         String tipo=fileDetail[j];
                         
-                        if(tipo.equals(snpArray.get(j-6).heterocigoto))
+                        if( tipo.equals(snpArray.get(j-6).heterocigoto.getTipo())   || (!fileDetail[j].substring(0,1).equals(fileDetail[j].substring(2))  ))
                         {
                             //System.out.println("heterocigoto  "+tipo);
                             snpArray.get(j-6).heterocigoto.setTipo(tipo);
@@ -56,26 +56,36 @@ public class ProcesarSNPRestoIndividuos extends Thread
                         }
                        if(fileDetail[j].substring(0,1).equals("0"))
                         {   //System.out.println("NA  "+tipo);
-                            temposnp.NA.setTipo("NA");
-                            temposnp.NA.setCantidadCasoHombre(temposnp.NA.getCantidadCasoHombre()+casohombre);
-                            temposnp.NA.setCantidadCasoMujer(temposnp.NA.getCantidadCasoMujer()+casomujer);
-                            temposnp.NA.setCantidadControlHombre(temposnp.NA.getCantidadControlHombre()+controlhombre);
-                            temposnp.NA.setCantidadControlMujer(temposnp.NA.getCantidadControlMujer()+controlmujer);
+                            snpArray.get(j-6).NA.setTipo("NA");
+                            snpArray.get(j-6).NA.setCantidadCasoHombre(snpArray.get(j-6).NA.getCantidadCasoHombre()+casohombre);
+                            snpArray.get(j-6).NA.setCantidadCasoMujer(snpArray.get(j-6).NA.getCantidadCasoMujer()+casomujer);
+                            snpArray.get(j-6).NA.setCantidadControlHombre(snpArray.get(j-6).NA.getCantidadControlHombre()+controlhombre);
+                            snpArray.get(j-6).NA.setCantidadControlMujer(snpArray.get(j-6).NA.getCantidadControlMujer()+controlmujer);
                         }
                         
                         if( fileDetail[j].substring(0,1).equals(fileDetail[j].substring(2)) )
                         {   //System.out.println("homocigoto  "+tipo);
-                            temposnp.homocigotoMayorFr.setTipo(tipo);
-                            temposnp.homocigotoMayorFr.setCantidadCasoHombre(temposnp.homocigotoMayorFr.getCantidadCasoHombre()+casohombre);
-                            temposnp.homocigotoMayorFr.setCantidadCasoMujer(temposnp.homocigotoMayorFr.getCantidadCasoMujer()+casomujer);
-                            temposnp.homocigotoMayorFr.setCantidadControlHombre(temposnp.homocigotoMayorFr.getCantidadControlHombre()+controlhombre);
-                            temposnp.homocigotoMayorFr.setCantidadControlMujer(temposnp.homocigotoMayorFr.getCantidadControlMujer()+controlmujer);
                             
+                            
+                            if(tipo.equals(snpArray.get(j-6).homocigotoMayorFr.getTipo()))
+                            {
+                               snpArray.get(j-6).homocigotoMayorFr.setTipo(tipo);
+                               snpArray.get(j-6).homocigotoMayorFr.setCantidadCasoHombre(temposnp.homocigotoMayorFr.getCantidadCasoHombre()+casohombre);
+                               snpArray.get(j-6).homocigotoMayorFr.setCantidadCasoMujer(temposnp.homocigotoMayorFr.getCantidadCasoMujer()+casomujer);
+                               snpArray.get(j-6).homocigotoMayorFr.setCantidadControlHombre(temposnp.homocigotoMayorFr.getCantidadControlHombre()+controlhombre);
+                               snpArray.get(j-6).homocigotoMayorFr.setCantidadControlMujer(temposnp.homocigotoMayorFr.getCantidadControlMujer()+controlmujer);
+                            }
+                            else
+                            {
+                               snpArray.get(j-6).homocigotoMenorFr.setTipo(tipo);
+                               snpArray.get(j-6).homocigotoMenorFr.setCantidadCasoHombre(temposnp.homocigotoMenorFr.getCantidadCasoHombre()+casohombre);
+                               snpArray.get(j-6).homocigotoMenorFr.setCantidadCasoMujer(temposnp.homocigotoMenorFr.getCantidadCasoMujer()+casomujer);
+                               snpArray.get(j-6).homocigotoMenorFr.setCantidadControlHombre(temposnp.homocigotoMenorFr.getCantidadControlHombre()+controlhombre);
+                               snpArray.get(j-6).homocigotoMenorFr.setCantidadControlMujer(temposnp.homocigotoMenorFr.getCantidadControlMujer()+controlmujer);
+                                
+                            }
                         }
                         
-                    //System.out.println("Hilo "+ j);
-                    snpArray.add(temposnp);
-              
                     
                     casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
                     
