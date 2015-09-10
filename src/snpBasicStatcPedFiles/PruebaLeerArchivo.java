@@ -51,7 +51,7 @@ public class PruebaLeerArchivo {
                 if( (linea=archivo.readLine()) != null)
                 {
                     textoArchivo.add(linea+"\n");
-                    procesarLinea(linea,control);
+                    procesarPrimeraLinea(linea,control);
                     control++;
                 
                 }
@@ -60,8 +60,9 @@ public class PruebaLeerArchivo {
                while((linea=archivo.readLine())!=null)
                { 
                     textoArchivo.add(linea+"\n");  
-                    procesarLinea(linea,control);       
+                    procesarRestoLinea(linea,control);       
                     control ++;
+                    System.out.println("Control");
                 }
             }
             catch(Exception ex)
@@ -77,7 +78,7 @@ public class PruebaLeerArchivo {
     
     
     
-    public synchronized void procesarLinea (String linea, int control)
+    public synchronized void procesarPrimeraLinea (String linea, int control)
     {
         //variable compartida por los hilos
         fileDetail = linea.split("\t");
@@ -120,8 +121,7 @@ public class PruebaLeerArchivo {
                     total+=1;
                     //System.out.println("lineas"+control);
                    
-                 if(control==0)
-                 {
+                
                     System.out.println("Entre a procesar Primera Linea SNP");  
                     while(j<fileDetail.length)
                     {
@@ -159,6 +159,7 @@ public class PruebaLeerArchivo {
                             proceBa4.join();
                             proceBa5.join();
                             proceBa6.join();
+                            proceBa7.join();
                             
                         } catch (InterruptedException ex) {
                             Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
@@ -171,9 +172,56 @@ public class PruebaLeerArchivo {
                          break;
                         }
                     }         
-                }
-                else
-                {
+    } 
+                
+                    
+    public synchronized void procesarRestoLinea (String linea, int control)
+    {           
+                //variable compartida por los hilos
+        fileDetail = linea.split("\t");
+        
+       /* int totalSNP=fileDetail.length-6;
+        System.out.println("Longitud del arreglo split   "+ totalSNP);*/
+        int cores = Runtime.getRuntime().availableProcessors();
+        //int hilosrestantes=fileDetail.length-(fileDetail.length/cores);
+        
+        System.out.println("numero de nucleos "+cores);
+        
+                
+        int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
+        int j=6;
+        int i=4;
+                    // hombre - control
+                   if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
+                    {
+                        controlhombre+=1;
+                        
+                    }
+                    //hombre -caso
+                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
+                    {
+                        casohombre+=1;
+                        
+                    }
+                    //mujer control
+                   if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
+                    {
+                        controlmujer+=1;
+                        
+                    }
+                    //mujer - caso
+                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
+                    {
+                        casomujer+=1;
+                        
+                    }
+                    total+=1;
+                    //System.out.println("lineas"+control);
+                   
+                
+                    System.out.println("Entre a procesar Primera Linea SNP");       
+                    
+                    
                     while(j<fileDetail.length)
                     {
                       System.out.println("Procesando el resto");  
@@ -210,12 +258,30 @@ public class PruebaLeerArchivo {
                       resto7.start();
                       j++;
                       
-                    }  
                     
-                }
+                    try {
+                            resto.join();
+                            resto1.join();
+                            resto2.join();
+                            resto3.join();
+                            resto4.join();
+                            resto5.join();
+                            resto6.join();
+                            resto7.join();
+                            
+                        } catch (InterruptedException ex) {
+                            Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    if(fileDetail.length-j <8)
+                        {
+                            System.out.println("j-fileDetail.length"+(fileDetail.length-j));   
+                         break;
+                        }
+                    }  
+    }                 
                  
-                 
-        }
+        
+     
        /* System.out.println("");
         System.out.println(fileDetail.length);
         System.out.print(fileDetail[6] + "  ");
