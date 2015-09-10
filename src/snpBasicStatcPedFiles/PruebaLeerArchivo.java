@@ -62,7 +62,7 @@ public class PruebaLeerArchivo {
                     textoArchivo.add(linea+"\n");  
                     procesarRestoLinea(linea,control);       
                     control ++;
-                    System.out.println("Control");
+                    System.out.println("Control "+ control);
                 }
             }
             catch(Exception ex)
@@ -219,12 +219,12 @@ public class PruebaLeerArchivo {
                     //System.out.println("lineas"+control);
                    
                 
-                    System.out.println("Entre a procesar Primera Linea SNP");       
-                    
+                    System.out.println("Entre a procesar El resto de  Lineas SNP");       
+                    System.out.println("Procesando el resto      "+ control);  
                     
                     while(j<fileDetail.length)
                     {
-                      System.out.println("Procesando el resto");  
+                      
                       
                       ProcesarSNPRestoIndividuos  resto =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
                       resto.start();

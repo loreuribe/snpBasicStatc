@@ -72,7 +72,7 @@ public class ProcesarSNPBasico extends Thread
                             
                         }
                         
-                    //System.out.println("Hilo "+ j);
+                    System.out.println("Hilo "+ j);
                     snpArray.add(temposnp);
               
                     
