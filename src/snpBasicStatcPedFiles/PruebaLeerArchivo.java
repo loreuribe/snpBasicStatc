@@ -48,21 +48,22 @@ public class PruebaLeerArchivo {
                 String linea;
                 int control=0;
                 
-                if( (linea=archivo.readLine()) != null)
-                {
-                    textoArchivo.add(linea+"\n");
-                    procesarPrimeraLinea(linea,control);
-                    control++;
-                
-                }
-                    
+                                   
                 
                while((linea=archivo.readLine())!=null)
                { 
+                   if(control==0){
+                    textoArchivo.add(linea+"\n");
+                    procesarPrimeraLinea(linea,control);
+                    control++;
+                   }
+                   else
+                   {
                     textoArchivo.add(linea+"\n");  
                     procesarRestoLinea(linea,control);       
                     control ++;
                     System.out.println("Control "+ control);
+                   }
                 }
             }
             catch(Exception ex)
@@ -176,8 +177,10 @@ public class PruebaLeerArchivo {
                 
                     
     public synchronized void procesarRestoLinea (String linea, int control)
-    {           
-                //variable compartida por los hilos
+    {   
+        System.out.println("Primero  SNP"+PruebaLeerArchivo.snpArray.get(0).toString()+" Pos= "+0 );
+        System.out.println("Ultimo   SNP"+PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1).toString()+" Pos= " +PruebaLeerArchivo.snpArray.size() );
+        //variable compartida por los hilos
         fileDetail = linea.split("\t");
         
        /* int totalSNP=fileDetail.length-6;
