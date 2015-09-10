@@ -20,17 +20,17 @@ public class ProcesarSNPBasico extends Thread
     int controlmujer;
     int total;
     int j;
-    String[] fileDetail;
+    String tipo;
     static ArrayList<SNP> snpArray;
 
-    public  ProcesarSNPBasico(int casohombre, int casomujer, int controlhombre, int controlmujer, int total, int j, String[] fileDetail, ArrayList<SNP> snpArray) {
+    public  ProcesarSNPBasico(int casohombre, int casomujer, int controlhombre, int controlmujer, int total, int j, String tipo, ArrayList<SNP> snpArray) {
         this.casohombre = casohombre;
         this.casomujer = casomujer;
         this.controlhombre = controlhombre;
         this.controlmujer = controlmujer;
         this.total = total;
         this.j = j;
-        this.fileDetail = fileDetail;
+        this.tipo = tipo;
         this.snpArray=snpArray;
     }
     
@@ -42,9 +42,9 @@ public class ProcesarSNPBasico extends Thread
     {
                         SNP temposnp = new SNP();
                        
-                        String tipo=fileDetail[j];
                         
-                        if(!fileDetail[j].substring(0,1).equals(fileDetail[j].substring(2)))
+                        
+                        if(!tipo.substring(0,1).equals(tipo.substring(2)))
                         {
                             //System.out.println("heterocigoto  "+tipo);
                             temposnp.heterocigoto.setTipo(tipo);
@@ -53,7 +53,7 @@ public class ProcesarSNPBasico extends Thread
                             temposnp.heterocigoto.setCantidadControlHombre(temposnp.heterocigoto.getCantidadControlHombre()+controlhombre);
                             temposnp.heterocigoto.setCantidadControlMujer(temposnp.heterocigoto.getCantidadControlMujer()+controlmujer);
                         }
-                       if(fileDetail[j].substring(0,1).equals("0"))
+                       if(tipo.substring(0,1).equals("0"))
                         {   //System.out.println("NA  "+tipo);
                             temposnp.NA.setTipo("NA");
                             temposnp.NA.setCantidadCasoHombre(temposnp.NA.getCantidadCasoHombre()+casohombre);
@@ -62,7 +62,7 @@ public class ProcesarSNPBasico extends Thread
                             temposnp.NA.setCantidadControlMujer(temposnp.NA.getCantidadControlMujer()+controlmujer);
                         }
                         
-                        if( fileDetail[j].substring(0,1).equals(fileDetail[j].substring(2)) )
+                        if( tipo.substring(0,1).equals(tipo.substring(2)) )
                         {   //System.out.println("homocigoto  "+tipo);
                             temposnp.homocigotoMayorFr.setTipo(tipo);
                             temposnp.homocigotoMayorFr.setCantidadCasoHombre(temposnp.homocigotoMayorFr.getCantidadCasoHombre()+casohombre);
@@ -72,9 +72,9 @@ public class ProcesarSNPBasico extends Thread
                             
                         }
                         
-                    System.out.println("Hilo "+ j);
+                    //System.out.println("Hilo "+ j);
                     snpArray.add(temposnp);
-              
+                  
                     
                     casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
                     

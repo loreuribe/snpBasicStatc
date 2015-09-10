@@ -57,13 +57,13 @@ public class PruebaLeerArchivo {
                     procesarPrimeraLinea(linea,control);
                     control++;
                    }
-                   else
+                  /* else
                    {
                     textoArchivo.add(linea+"\n");  
                     procesarRestoLinea(linea,control);       
                     control ++;
                     System.out.println("Control "+ control);
-                   }
+                   }*/
                 }
             }
             catch(Exception ex)
@@ -84,17 +84,17 @@ public class PruebaLeerArchivo {
         //variable compartida por los hilos
         fileDetail = linea.split("\t");
         
-       /* int totalSNP=fileDetail.length-6;
-        System.out.println("Longitud del arreglo split   "+ totalSNP);*/
-        int cores = Runtime.getRuntime().availableProcessors();
-        //int hilosrestantes=fileDetail.length-(fileDetail.length/cores);
         
+        int totalSNP=fileDetail.length-6;
+        System.out.println("Longitud del arreglo en snp es de   "+ totalSNP);
+        int cores = Runtime.getRuntime().availableProcessors();
         System.out.println("numero de nucleos "+cores);
         
                 
         int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
         int j=6;
         int i=4;
+                  System.out.println("Primer SNP="+fileDetail[6]);
                     // hombre - control
                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
                     {
@@ -124,13 +124,14 @@ public class PruebaLeerArchivo {
                    
                 
                     System.out.println("Entre a procesar Primera Linea SNP");  
+                    String tipo=fileDetail[j];
                     while(j<fileDetail.length)
                     {
                         
-                        ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
+                        ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, tipo,snpArray);
                         proceBa.start();
                         j++;
-                        ProcesarSNPBasico proceBa1 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
+                        /*ProcesarSNPBasico proceBa1 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa1.start();
                         j++;
                         ProcesarSNPBasico proceBa2 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
@@ -150,29 +151,27 @@ public class PruebaLeerArchivo {
                         j++;
                         ProcesarSNPBasico proceBa7 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
                         proceBa7.start();
-                        j++;
+                        j++;*/
                         
                         try {
                             proceBa.join();
-                            proceBa1.join();
-                            proceBa2.join();
-                            proceBa3.join();
-                            proceBa4.join();
-                            proceBa5.join();
-                            proceBa6.join();
-                            proceBa7.join();
+                            
                             
                         } catch (InterruptedException ex) {
                             Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         
                         
-                        if(fileDetail.length-j <8)
+                        /*if(fileDetail.length-j <8)
                         {
-                            System.out.println("j-fileDetail.length"+(fileDetail.length-j));   
+                            System.out.println("j-fileDetail.length "+(fileDetail.length-j)+ "  Valor de j en este punto   "+ j);   
                          break;
-                        }
-                    }         
+                        }*/
+                    }       
+            System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
+            System.out.println("Primero  SNP"+PruebaLeerArchivo.snpArray.get(0).toString()+" Pos= "+0 );
+            System.out.println("Ultimo   SNP"+PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1).toString()+" Pos= " +PruebaLeerArchivo.snpArray.size() );
+            
     } 
                 
                     
@@ -197,24 +196,28 @@ public class PruebaLeerArchivo {
                     // hombre - control
                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
                     {
+                        System.out.println("hombre - control");
                         controlhombre+=1;
                         
                     }
                     //hombre -caso
                     if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
                     {
+                        System.out.println("hombre - caso");
                         casohombre+=1;
                         
                     }
                     //mujer control
                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
                     {
+                        System.out.println("mujer - control");
                         controlmujer+=1;
                         
                     }
                     //mujer - caso
                     if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
                     {
+                        System.out.println("mujer - caso");
                         casomujer+=1;
                         
                     }
@@ -277,7 +280,7 @@ public class PruebaLeerArchivo {
                         }
                     if(fileDetail.length-j <8)
                         {
-                            System.out.println("j-fileDetail.length"+(fileDetail.length-j));   
+                            System.out.println("j-fileDetail.length "+(fileDetail.length-j)+ "  Valor de j en este punto   "+ j);   
                          break;
                         }
                     }  
@@ -285,12 +288,7 @@ public class PruebaLeerArchivo {
                  
         
      
-       /* System.out.println("");
-        System.out.println(fileDetail.length);
-        System.out.print(fileDetail[6] + "  ");
-        System.out.print(fileDetail[7] + "  ");*/
-        
-    
+   
     
     
     
@@ -298,7 +296,9 @@ public class PruebaLeerArchivo {
 {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        //
+        //X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.CHD.qc.poly.recode.ped
+        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
         //pp.leer_Archivo("../doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
         
         System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
