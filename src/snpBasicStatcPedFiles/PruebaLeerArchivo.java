@@ -26,10 +26,49 @@ public class PruebaLeerArchivo {
      * 
      * 
      */
+    
+     ArrayList <Particiones>arregloParticiones;
      public static ArrayList<SNP> snpArray;
      public SNP temposnp=null;
      String[] fileDetail;
      int contlineas=0;
+     int cores;
+     int totalSNP;
+     
+     
+    public void partirSNPS()
+    {
+       int i=0;
+       int  particion=(int) Math.ceil(totalSNP/cores)+1;
+       
+       int inicioP=0;
+       int finalP=particion;
+       
+       arregloParticiones= new ArrayList<>();
+       
+       do
+       {
+           System.out.println("Entrando");
+           Particiones p = new Particiones(inicioP, finalP);
+           arregloParticiones.add(p);
+           inicioP=finalP;
+           finalP=finalP+particion;
+        
+       }while( (totalSNP-finalP)>particion);
+       if(totalSNP%particion!=0)
+       {       
+               finalP=totalSNP;
+               Particiones p = new Particiones(inicioP, finalP);
+               arregloParticiones.add(p);
+               
+       }
+       
+        for(Particiones pp:arregloParticiones)
+        {
+            System.out.println(pp.toString());
+        }
+            
+    }
 
     public PruebaLeerArchivo() {
         snpArray = new ArrayList<SNP>();
@@ -85,10 +124,12 @@ public class PruebaLeerArchivo {
         fileDetail = linea.split("\t");
         
         
-        int totalSNP=fileDetail.length-6;
+        totalSNP=fileDetail.length-6;
         System.out.println("Longitud del arreglo en snp es de   "+ totalSNP);
-        int cores = Runtime.getRuntime().availableProcessors();
+        cores = Runtime.getRuntime().availableProcessors();
         System.out.println("numero de nucleos "+cores);
+        
+       
         
                 
         int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
@@ -124,9 +165,10 @@ public class PruebaLeerArchivo {
                    
                 
                     System.out.println("Entre a procesar Primera Linea SNP");  
-                    String tipo=fileDetail[j];
+                    
                     while(j<fileDetail.length)
                     {
+                        String tipo=fileDetail[j];
                         
                         ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, tipo,snpArray);
                         proceBa.start();
@@ -296,17 +338,24 @@ public class PruebaLeerArchivo {
 {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-        //
+       // pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+        pp.totalSNP =115;
+        pp.cores=32;
+        pp.partirSNPS();
+        
+
+
         //X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.CHD.qc.poly.recode.ped
-        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+       
         //pp.leer_Archivo("../doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
         
-        System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
+        
+    //    System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
         int cont=0;
         /*for(int i=0;i<PruebaLeerArchivo.snpArray.size();i++)
         {*/
-            System.out.println("Primero  SNP"+PruebaLeerArchivo.snpArray.get(0).toString()+" Pos= "+0 );
-            System.out.println("Ultimo   SNP"+PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1).toString()+" Pos= " +PruebaLeerArchivo.snpArray.size() );
+//            System.out.println("Primero  SNP"+PruebaLeerArchivo.snpArray.get(0).toString()+" Pos= "+0 );
+  //          System.out.println("Ultimo   SNP"+PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1).toString()+" Pos= " +PruebaLeerArchivo.snpArray.size() );
             cont++;
         //}
         
