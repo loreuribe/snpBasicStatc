@@ -14,38 +14,76 @@ import snpBasicStatc.SNP;
  */
 public class ProcesarSNPRestoIndividuos extends Thread
 {
-    int casohombre;
+     int casohombre;
     int casomujer;
     int controlhombre;
     int controlmujer;
     int total;
-    int j;
-    String[] fileDetail;
+    String []fileDetail;
     static ArrayList<SNP> snpArray;
-
-    public  ProcesarSNPRestoIndividuos(int casohombre, int casomujer, int controlhombre, int controlmujer, int total, int j, String[] fileDetail, ArrayList<SNP> snpArray) {
-        this.casohombre = casohombre;
-        this.casomujer = casomujer;
-        this.controlhombre = controlhombre;
-        this.controlmujer = controlmujer;
-        this.total = total;
-        this.j = j;
+    int inicioP;
+    int finalP;
+    
+    public  ProcesarSNPRestoIndividuos(String []fileDetail, ArrayList<SNP> snpArray,int inicioP,int finalP) {
         this.fileDetail = fileDetail;
+        //snpArray = new ArrayList<SNP>();
         this.snpArray=snpArray;
+        System.out.println("Instancie los datos");
+        this.inicioP=inicioP;
+        this.finalP=finalP;
     }
     
     
     
     
     
-    public synchronized void procesarSiguientes()
+    synchronized public void procesargrupoSNP()
     {
-                        SNP temposnp = new SNP();
-                       
-                        String tipo=fileDetail[j];
-                        System.out.println("El J " +j+ " J-7 "+ (j-7));
-                        System.out.println("");
+        SNP temposnp = null;
+        int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
+        int j=inicioP;
+        System.out.println("Valor de J   "+ j);
+         System.out.println("Valo Final"+ finalP);
+        int i=4;
+                 
+                    // hombre - control
+                   if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
+                    {
+                        System.out.println("Hombre Control");
+                        controlhombre+=1;
                         
+                    }
+                    //hombre -caso
+                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
+                    {
+                        System.out.println("Hombre Caso");
+                        casohombre+=1;
+                        
+                    }
+                    //mujer control
+                   if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
+                    {
+                        System.out.println("Mujer control");
+                        controlmujer+=1;
+                        
+                    }
+                    //mujer - caso
+                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
+                    {
+                        System.out.println("Mujer Caso");
+                        casomujer+=1;
+                        
+                    }
+                    total+=1;
+                
+                String tipo=fileDetail[j];
+                System.out.println("Tipo "+ tipo);
+                
+                while(j<finalP) 
+                {               
+                   
+                   tipo=fileDetail[j];
+                   System.out.println("Tipo "+ tipo);
                         if( tipo.equals(snpArray.get(j-7).heterocigoto.getTipo())   || (!fileDetail[j].substring(0,1).equals(fileDetail[j].substring(2))  ))
                         {
                             //System.out.println("heterocigoto  "+tipo);
@@ -87,15 +125,17 @@ public class ProcesarSNPRestoIndividuos extends Thread
                                 
                             }
                         }
-                        
+                        j++;
                     
-                    casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
                     
-}
+                }      
+                 casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
+                 System.out.println("Valor de J   "+ j+ " Final "+ finalP);
+    }
 
     @Override
     public void run() {
-        procesarSiguientes();
+        procesargrupoSNP();
         
     }
                   
