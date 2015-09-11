@@ -6,7 +6,10 @@
 package snpBasicStatcPedFiles;
 
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import snpBasicStatc.SNP;
+import static snpBasicStatcPedFiles.PruebaLeerArchivo.snpArray;
 
 /**
  *
@@ -20,31 +23,53 @@ public class ProcesarSNPBasico extends Thread
     int controlmujer;
     int total;
     int j;
-    String tipo;
+    String []fileDetail;
     static ArrayList<SNP> snpArray;
+    int inicioP;
+    int finalP;
 
-    public  ProcesarSNPBasico(int casohombre, int casomujer, int controlhombre, int controlmujer, int total, int j, String tipo, ArrayList<SNP> snpArray) {
-        this.casohombre = casohombre;
-        this.casomujer = casomujer;
-        this.controlhombre = controlhombre;
-        this.controlmujer = controlmujer;
-        this.total = total;
-        this.j = j;
-        this.tipo = tipo;
+    public  ProcesarSNPBasico(String []fileDetail, ArrayList<SNP> snpArray,int inicioP,int finalP) {
+        this.fileDetail = fileDetail;
         this.snpArray=snpArray;
     }
-    
-    
-    
-    
-    
-    public synchronized void procesarPrimeroSNP()
+   
+    synchronized public void procesargrupoSNP(int inicioP, int finalP)
     {
-                        SNP temposnp = new SNP();
-                       
+        SNP temposnp = new SNP();
+        int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
+        int j=inicioP+6;
+        int i=4;
+                  System.out.println("Primer SNP="+fileDetail[6]);
+                    // hombre - control
+                   if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
+                    {
+                        controlhombre+=1;
                         
+                    }
+                    //hombre -caso
+                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
+                    {
+                        casohombre+=1;
                         
-                        if(!tipo.substring(0,1).equals(tipo.substring(2)))
+                    }
+                    //mujer control
+                   if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
+                    {
+                        controlmujer+=1;
+                        
+                    }
+                    //mujer - caso
+                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
+                    {
+                        casomujer+=1;
+                        
+                    }
+                    total+=1;
+                    System.out.println("Entre a procesar Primera Linea SNP");  
+                String tipo=fileDetail[j];
+                while(j<finalP) 
+                {
+                   if(!tipo.substring(0,1).equals(tipo.substring(2)))
                         {
                             //System.out.println("heterocigoto  "+tipo);
                             temposnp.heterocigoto.setTipo(tipo);
@@ -75,16 +100,10 @@ public class ProcesarSNPBasico extends Thread
                     //System.out.println("Hilo "+ j);
                     snpArray.add(temposnp);
                   
-                    
+                }   
                     casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
                     
 }
-
-    @Override
-    public void run() {
-        procesarPrimeroSNP();
-        
-    }
-                  
- }//Fin de la Clase
+               
+}//Fin de la Clase
     

@@ -19,28 +19,60 @@ import snpBasicStatc.SNP;
  *
  * @author Loena
  */
-public class PruebaLeerArchivo {
-
-    /**
-     * @param args the command line arguments
-     * 
-     * 
-     */
+public class PruebaLeerArchivo  {
+     
     
-     ArrayList <Particiones>arregloParticiones;
+    ArrayList <Particiones>arregloParticiones;
      public static ArrayList<SNP> snpArray;
      public SNP temposnp=null;
      String[] fileDetail;
      int contlineas=0;
-     int cores;
+     int cores =Runtime.getRuntime().availableProcessors();
      int totalSNP;
+     String  linea;
+     ArrayList<String> textoArchivo;
+
      
+     //
+     public PruebaLeerArchivo() {
+        textoArchivo=new ArrayList<>();
+        snpArray = new ArrayList<SNP>();
+        
+    }
      
+    //Método que lee de datos de un archivo 
+     
+    public ArrayList<String> leer_Archivo(String direccion){
+            try 
+            {
+                BufferedReader archivo = new BufferedReader(new FileReader(new File(direccion)));
+                int control=0;
+                while((linea=archivo.readLine())!=null)
+                { 
+                    //textoArchivo.add(linea+"\n");
+                    if(control==0)
+                    {
+                    String []fileDetail = linea.split("\t");
+                    totalSNP=fileDetail.length-6;
+                    partirSNPS();
+                    
+                    }
+                }
+            }
+            catch(Exception ex)
+            {
+                System.out.println("Error: F1 "+ex.getLocalizedMessage());
+                ex.printStackTrace();
+                System.exit(0);
+            }             
+        return textoArchivo;
+    }
+    
     public void partirSNPS()
     {
        int i=0;
        int  particion=(int) Math.ceil(totalSNP/cores)+1;
-       
+       //int  particion=totalSNP/cores;
        int inicioP=0;
        int finalP=particion;
        
@@ -70,296 +102,28 @@ public class PruebaLeerArchivo {
             
     }
 
-    public PruebaLeerArchivo() {
-        snpArray = new ArrayList<SNP>();
-        
-    }
-     
-    
-    public ArrayList<String> leer_Archivo(String direccion){
-          
-        ArrayList<String> textoArchivo=new ArrayList<>();
-        
-       
-            try 
-            {
-                BufferedReader archivo = new BufferedReader(new FileReader(new File(direccion)));
-                String linea;
-                int control=0;
-                
-                                   
-                
-               while((linea=archivo.readLine())!=null)
-               { 
-                   if(control==0){
-                    textoArchivo.add(linea+"\n");
-                    procesarPrimeraLinea(linea,control);
-                    control++;
-                   }
-                  /* else
-                   {
-                    textoArchivo.add(linea+"\n");  
-                    procesarRestoLinea(linea,control);       
-                    control ++;
-                    System.out.println("Control "+ control);
-                   }*/
-                }
-            }
-            catch(Exception ex)
-            {
-                System.out.println("Error: F1 "+ex.getLocalizedMessage());
-                ex.printStackTrace();
-                System.exit(0);
-            }             
-            
-      
-        return textoArchivo;
-    }
-    
-    
-    
-    public synchronized void procesarPrimeraLinea (String linea, int control)
+    public void ProcesarPrimeraLinea()
     {
-        //variable compartida por los hilos
-        fileDetail = linea.split("\t");
-        
-        
-        totalSNP=fileDetail.length-6;
-        System.out.println("Longitud del arreglo en snp es de   "+ totalSNP);
-        cores = Runtime.getRuntime().availableProcessors();
-        System.out.println("numero de nucleos "+cores);
-        
-       
-        
-                
-        int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
-        int j=6;
-        int i=4;
-                  System.out.println("Primer SNP="+fileDetail[6]);
-                    // hombre - control
-                   if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
-                    {
-                        controlhombre+=1;
-                        
-                    }
-                    //hombre -caso
-                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
-                    {
-                        casohombre+=1;
-                        
-                    }
-                    //mujer control
-                   if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
-                    {
-                        controlmujer+=1;
-                        
-                    }
-                    //mujer - caso
-                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
-                    {
-                        casomujer+=1;
-                        
-                    }
-                    total+=1;
-                    //System.out.println("lineas"+control);
-                   
-                
-                    System.out.println("Entre a procesar Primera Linea SNP");  
-                    
-                    while(j<fileDetail.length)
-                    {
-                        String tipo=fileDetail[j];
-                        
-                        ProcesarSNPBasico proceBa = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, tipo,snpArray);
-                        proceBa.start();
-                        j++;
-                        /*ProcesarSNPBasico proceBa1 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa1.start();
-                        j++;
-                        ProcesarSNPBasico proceBa2 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa2.start();
-                        j++;
-                        ProcesarSNPBasico proceBa3 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa3.start();
-                        j++;
-                        ProcesarSNPBasico proceBa4 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa4.start();
-                        j++;
-                        ProcesarSNPBasico proceBa5 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa5.start();
-                        j++;
-                        ProcesarSNPBasico proceBa6 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa6.start();
-                        j++;
-                        ProcesarSNPBasico proceBa7 = new ProcesarSNPBasico(casohombre, casomujer, controlhombre, controlmujer, total, j, fileDetail,snpArray);
-                        proceBa7.start();
-                        j++;*/
-                        
-                        try {
-                            proceBa.join();
-                            
-                            
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                        
-                        
-                        /*if(fileDetail.length-j <8)
-                        {
-                            System.out.println("j-fileDetail.length "+(fileDetail.length-j)+ "  Valor de j en este punto   "+ j);   
-                         break;
-                        }*/
-                    }       
-            System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
-            System.out.println("Primero  SNP"+PruebaLeerArchivo.snpArray.get(0).toString()+" Pos= "+0 );
-            System.out.println("Ultimo   SNP"+PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1).toString()+" Pos= " +PruebaLeerArchivo.snpArray.size() );
-            
-    } 
-                
-                    
-    public synchronized void procesarRestoLinea (String linea, int control)
-    {   
-        System.out.println("Primero  SNP"+PruebaLeerArchivo.snpArray.get(0).toString()+" Pos= "+0 );
-        System.out.println("Ultimo   SNP"+PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1).toString()+" Pos= " +PruebaLeerArchivo.snpArray.size() );
-        //variable compartida por los hilos
-        fileDetail = linea.split("\t");
-        
-       /* int totalSNP=fileDetail.length-6;
-        System.out.println("Longitud del arreglo split   "+ totalSNP);*/
-        int cores = Runtime.getRuntime().availableProcessors();
-        //int hilosrestantes=fileDetail.length-(fileDetail.length/cores);
-        
-        System.out.println("numero de nucleos "+cores);
-        
-                
-        int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
-        int j=6;
-        int i=4;
-                    // hombre - control
-                   if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
-                    {
-                        System.out.println("hombre - control");
-                        controlhombre+=1;
-                        
-                    }
-                    //hombre -caso
-                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
-                    {
-                        System.out.println("hombre - caso");
-                        casohombre+=1;
-                        
-                    }
-                    //mujer control
-                   if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
-                    {
-                        System.out.println("mujer - control");
-                        controlmujer+=1;
-                        
-                    }
-                    //mujer - caso
-                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
-                    {
-                        System.out.println("mujer - caso");
-                        casomujer+=1;
-                        
-                    }
-                    total+=1;
-                    //System.out.println("lineas"+control);
-                   
-                
-                    System.out.println("Entre a procesar El resto de  Lineas SNP");       
-                    System.out.println("Procesando el resto      "+ control);  
-                    
-                    while(j<fileDetail.length)
-                    {
-                      
-                      
-                      ProcesarSNPRestoIndividuos  resto =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto.start();
-                      j++;
-                      
-                      ProcesarSNPRestoIndividuos  resto1 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto1.start();
-                      j++;
-                      
-                      ProcesarSNPRestoIndividuos  resto2 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto2.start();
-                      j++;
-                     
-                      ProcesarSNPRestoIndividuos  resto3 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto3.start();
-                      j++;
-                      
-                      ProcesarSNPRestoIndividuos  resto4 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto4.start();
-                      j++;
-                      
-                      ProcesarSNPRestoIndividuos  resto5 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto5.start();
-                      j++;
-                      
-                      ProcesarSNPRestoIndividuos  resto6 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto6.start();
-                      j++;
-                      
-                      ProcesarSNPRestoIndividuos  resto7 =new ProcesarSNPRestoIndividuos(casohombre,casomujer,controlhombre,controlmujer,total,j,fileDetail,snpArray);
-                      resto7.start();
-                      j++;
-                      
-                    
-                    try {
-                            resto.join();
-                            resto1.join();
-                            resto2.join();
-                            resto3.join();
-                            resto4.join();
-                            resto5.join();
-                            resto6.join();
-                            resto7.join();
-                            
-                        } catch (InterruptedException ex) {
-                            Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    if(fileDetail.length-j <8)
-                        {
-                            System.out.println("j-fileDetail.length "+(fileDetail.length-j)+ "  Valor de j en este punto   "+ j);   
-                         break;
-                        }
-                    }  
-    }                 
-                 
-        
-     
-   
+        for(Particiones p:arregloParticiones)
+        {
+            ProcesarSNPBasico basico= new ProcesarSNPBasico(fileDetail, snpArray, p.inicioP, p.finalP);
+            basico.start();
+        }
+    
+    }
+    
+    
     
     
     
     public static void main(String[] args) 
-{
+    {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-       // pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
-        pp.totalSNP =115;
-        pp.cores=32;
-        pp.partirSNPS();
-        
-
-
-        //X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.CHD.qc.poly.recode.ped
-       
-        //pp.leer_Archivo("../doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
-        
-        
-    //    System.out.println("LSNP=  "+PruebaLeerArchivo.snpArray.size());
-        int cont=0;
-        /*for(int i=0;i<PruebaLeerArchivo.snpArray.size();i++)
-        {*/
-//            System.out.println("Primero  SNP"+PruebaLeerArchivo.snpArray.get(0).toString()+" Pos= "+0 );
-  //          System.out.println("Ultimo   SNP"+PruebaLeerArchivo.snpArray.get(PruebaLeerArchivo.snpArray.size()-1).toString()+" Pos= " +PruebaLeerArchivo.snpArray.size() );
-            cont++;
-        //}
-        
-                
+        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+        System.out.println("Primero"+pp.snpArray.get(0).toString());
+        System.out.println("Primero"+pp.snpArray.get(pp.snpArray.size()).toString());
+ 
     }
     
 }
