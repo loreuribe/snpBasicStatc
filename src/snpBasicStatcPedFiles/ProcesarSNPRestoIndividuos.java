@@ -44,6 +44,7 @@ public class ProcesarSNPRestoIndividuos extends Thread
                        
                         String tipo=fileDetail[j];
                         System.out.println("El J " +j+ " J-7 "+ (j-7));
+                        System.out.println("");
                         
                         if( tipo.equals(snpArray.get(j-7).heterocigoto.getTipo())   || (!fileDetail[j].substring(0,1).equals(fileDetail[j].substring(2))  ))
                         {

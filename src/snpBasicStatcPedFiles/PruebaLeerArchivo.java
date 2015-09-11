@@ -31,12 +31,14 @@ public class PruebaLeerArchivo  {
      int totalSNP;
      String  linea;
      ArrayList<String> textoArchivo;
-
+  
      
      //
      public PruebaLeerArchivo() {
         textoArchivo=new ArrayList<>();
         snpArray = new ArrayList<SNP>();
+        arregloParticiones= new ArrayList<>();
+       
         
     }
      
@@ -52,11 +54,11 @@ public class PruebaLeerArchivo  {
                     //textoArchivo.add(linea+"\n");
                     if(control==0)
                     {
-                    String []fileDetail = linea.split("\t");
+                    fileDetail = linea.split("\t");
+                    System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                     totalSNP=fileDetail.length-6;
-                    partirSNPS();
-                    
-                    }
+                    ProcesarPrimeraLinea();
+                   }
                 }
             }
             catch(Exception ex)
@@ -76,11 +78,9 @@ public class PruebaLeerArchivo  {
        int inicioP=0;
        int finalP=particion;
        
-       arregloParticiones= new ArrayList<>();
        
        do
        {
-           System.out.println("Entrando");
            Particiones p = new Particiones(inicioP, finalP);
            arregloParticiones.add(p);
            inicioP=finalP;
@@ -101,13 +101,30 @@ public class PruebaLeerArchivo  {
         }
             
     }
-
-    public void ProcesarPrimeraLinea()
+    
+    ArrayList <ProcesarSNPBasico>arregloProcesosSNPBasico;
+    public void ProcesarPrimeraLinea() 
     {
-        for(Particiones p:arregloParticiones)
+        partirSNPS();
+        //for(Particiones p:arregloParticiones)
+         ProcesarSNPBasico basico;
+        for(int i=0;i<arregloParticiones.size();i++)
         {
-            ProcesarSNPBasico basico= new ProcesarSNPBasico(fileDetail, snpArray, p.inicioP, p.finalP);
-            basico.start();
+            arregloProcesosSNPBasico = new ArrayList<ProcesarSNPBasico>();
+            
+            basico= new ProcesarSNPBasico(fileDetail, snpArray, arregloParticiones.get(i).inicioP+6, arregloParticiones.get(i).finalP+6);
+            arregloProcesosSNPBasico.add(basico);
+        }
+        
+        for(int i=0;i <arregloProcesosSNPBasico.size();i++)
+        {
+            arregloProcesosSNPBasico.get(i).start();
+            try {
+             arregloProcesosSNPBasico.get(i).join();
+                
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     
     }
@@ -121,9 +138,11 @@ public class PruebaLeerArchivo  {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+        System.out.println("Tamaño del arreglo "+pp.snpArray.size());
         System.out.println("Primero"+pp.snpArray.get(0).toString());
-        System.out.println("Primero"+pp.snpArray.get(pp.snpArray.size()).toString());
- 
+        System.out.println("Primero"+pp.snpArray.get(pp.snpArray.size()-1));
+         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
+       
     }
     
 }
