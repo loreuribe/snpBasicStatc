@@ -7,10 +7,13 @@ package snpBasicStatcPedFiles;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
 import snpBasicStatc.SNP;
 import static snpBasicStatcPedFiles.PruebaLeerArchivo.snpArray;
 
@@ -32,7 +35,7 @@ public class ProcesarSNPBasico extends Thread
 
     public  ProcesarSNPBasico(String []fileDetail, ArrayList<SNP> snpArray,int inicioP,int finalP) {
         this.fileDetail = fileDetail;
-        //snpArray = new ArrayList<SNP>();
+        snpArray = new ArrayList<SNP>();
         this.snpArray=snpArray;
         System.out.println("Instancie los datos");
         this.inicioP=inicioP;
@@ -127,6 +130,45 @@ public class ProcesarSNPBasico extends Thread
         procesargrupoSNP();
     }
            
-   
+    
+    public static void main(String[] args) {
+        
+        BufferedReader archivo = null;
+        String linea;
+        String []fileDetail;
+        int totalSNP;
+        try {
+        
+            archivo = new BufferedReader(new FileReader(new File("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped")));
+            int control=0;
+            while((linea=archivo.readLine())!=null)
+            {
+                //textoArchivo.add(linea+"\n");
+                if(control==0)
+                {
+                    fileDetail = linea.split("\t");
+                    totalSNP=fileDetail.length-6;
+                    ProcesarSNPBasico basico = new ProcesarSNPBasico(fileDetail, snpArray, 0+6, totalSNP+6);
+                    basico.start();
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(ProcesarSNPBasico.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(ProcesarSNPBasico.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                archivo.close();
+            } catch (IOException ex) {
+                Logger.getLogger(ProcesarSNPBasico.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        
+        System.out.println("Primero"+snpArray.get(0).toString());
+        System.out.println("Primero"+snpArray.get(snpArray.size()-1));
+        System.out.println("Tamaño del arreglo "+snpArray.size());
+        
+    }
+    
 }//Fin de la Clase
     
