@@ -60,6 +60,7 @@ public class PruebaLeerArchivo  {
                     System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                     totalSNP=fileDetail.length-6;
                     ProcesarPrimeraLinea();
+                    control++;
                    }
                    else
                    {

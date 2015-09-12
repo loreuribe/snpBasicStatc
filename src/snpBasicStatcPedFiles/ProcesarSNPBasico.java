@@ -149,7 +149,8 @@ public class ProcesarSNPBasico extends Thread
                     fileDetail = linea.split("\t");
                     totalSNP=fileDetail.length-6;
                     ProcesarSNPBasico basico = new ProcesarSNPBasico(fileDetail, snpArray, 0+6, totalSNP+6);
-                    basico.start();
+                    basico.procesargrupoSNP();
+                    control++;
                 }
             }
         } catch (FileNotFoundException ex) {
