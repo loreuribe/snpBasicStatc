@@ -118,7 +118,7 @@ public class ProcesarSNPBasico extends Thread
                         }
                         
                     //System.out.println("Hilo "+ j);
-                    snpArray.add(temposnp);
+                    snpArray.add(j-6,temposnp);
                   j++;
                 }   
                     casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;

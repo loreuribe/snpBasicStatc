@@ -7,6 +7,7 @@ package snpBasicStatc;
 
 import static snpBasicStatc.ChiSquareUtils.pochisq;
 import java.util.ArrayList;
+import java.util.jar.Attributes;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -849,7 +850,11 @@ public class SNP {
 
     @Override
     public String toString() {
-        return "SNP{" + "NA=" + NA.getTipo() + ", homocigotoMayorFr=" + homocigotoMayorFr.getTipo() + ", heterocigoto=" + heterocigoto.getTipo() + ", homocigotoMenorFr=" + homocigotoMenorFr.getTipo() + '}';
+        return "SNP{" + "NA=" + NA.getTipo() + ", homocigotoMayorFr=" + homocigotoMayorFr.getTipo() + ", heterocigoto=" + heterocigoto.getTipo() + ", homocigotoMenorFr=" + homocigotoMenorFr.getTipo() + '\n'+ 
+               NA.getCantidadCasoHombre()+NA.getCantidadCasoMujer()+NA.getCantidadControlHombre()+NA.getCantidadControlMujer()+
+               "homocigotoMayorFr= CAH "+ homocigotoMayorFr.getCantidadCasoHombre()+" CAM "+homocigotoMayorFr.getCantidadCasoMujer()+" COH "+homocigotoMayorFr.getCantidadControlHombre()+" COM "+homocigotoMayorFr.getCantidadControlMujer()+ '\n'+ 
+               "Heterocigoto= CAH "+heterocigoto.getCantidadCasoHombre()+" CAM "+heterocigoto.getCantidadCasoMujer()+" COH "+heterocigoto.getCantidadControlHombre()+" COM "+heterocigoto.getCantidadControlMujer()+ '}' ;
+        
     }
      
      

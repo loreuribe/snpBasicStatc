@@ -23,7 +23,10 @@ public class PruebaLeerArchivo  {
      
     
     ArrayList <Particiones>arregloParticiones;
+    
+    //Guarda la categorizacion de lso SNPS
      public static ArrayList<SNP> snpArray;
+     
      public SNP temposnp=null;
      String[] fileDetail;
      int contlineas=0;
@@ -177,6 +180,7 @@ public class PruebaLeerArchivo  {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+        
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
         System.out.println("Primero"+pp.snpArray.get(0).toString());
         System.out.println("Primero"+pp.snpArray.get(pp.snpArray.size()-1));
