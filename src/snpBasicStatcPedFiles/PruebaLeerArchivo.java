@@ -152,7 +152,7 @@ public class PruebaLeerArchivo  {
         partirSNPS();
         //for(Particiones p:arregloParticiones)
          ProcesarSNPRestoIndividuos resto;
-          arregloProcesosSNPBasico = new ArrayList<ProcesarSNPBasico>();
+          arregloProcesosSNPResto = new ArrayList<ProcesarSNPRestoIndividuos>();
         for(Particiones p:arregloParticiones)
         {
            
@@ -184,8 +184,10 @@ public class PruebaLeerArchivo  {
         pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
         
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
-        System.out.println("Primero"+pp.snpArray.get(0).toString());
-        System.out.println("Primero"+pp.snpArray.get(pp.snpArray.size()-1));
+        for(int i=0;i<10;i++)
+           System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
+        
+       
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
        
     }

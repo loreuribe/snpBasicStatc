@@ -37,7 +37,7 @@ public class ProcesarSNPBasico extends Thread
         this.fileDetail = fileDetail;
         //snpArray = new ArrayList<SNP>();
         this.snpArray=snpArray;
-        System.out.println("Instancie los datos");
+        
         this.inicioP=inicioP;
         this.finalP=finalP;
     }
@@ -54,41 +54,41 @@ public class ProcesarSNPBasico extends Thread
                     // hombre - control
                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
                     {
-                        System.out.println("Hombre Control");
+                       // System.out.println("Hombre Control");
                         controlhombre+=1;
                         
                     }
                     //hombre -caso
                     if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
                     {
-                        System.out.println("Hombre Caso");
+                        //System.out.println("Hombre Caso");
                         casohombre+=1;
                         
                     }
                     //mujer control
                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
                     {
-                        System.out.println("Mujer control");
+                        //System.out.println("Mujer control");
                         controlmujer+=1;
                         
                     }
                     //mujer - caso
                     if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
                     {
-                        System.out.println("Mujer Caso");
+                        //System.out.println("Mujer Caso");
                         casomujer+=1;
                         
                     }
                     total+=1;
                 
-                String tipo=fileDetail[j];
+                String tipo;
                 
-                System.out.println("Valor de J   "+ j+ " Final "+ finalP);
+                //System.out.println("Valor de J   "+ j+ " Final "+ finalP);
                 while(j<finalP) 
                 {
                    temposnp = new SNP();
                    tipo=fileDetail[j];
-                //   System.out.println("Tipo "+ tipo);
+                   //System.out.print("Tipo "+ tipo+ "  ");
                    if(!tipo.substring(0,1).equals(tipo.substring(2)))
                         {
                             //System.out.println("heterocigoto  "+tipo);
@@ -107,8 +107,9 @@ public class ProcesarSNPBasico extends Thread
                             temposnp.NA.setCantidadControlMujer(temposnp.NA.getCantidadControlMujer()+controlmujer);
                         }
                         
-                        if( tipo.substring(0,1).equals(tipo.substring(2)) )
-                        {   //System.out.println("homocigoto  "+tipo);
+                        if( tipo.substring(0,1).equals(tipo.substring(2)) && !tipo.substring(0,1).equals("0")  )
+                        {  
+                           // System.out.println("Tipo   "+ tipo);
                             temposnp.homocigotoMayorFr.setTipo(tipo);
                             temposnp.homocigotoMayorFr.setCantidadCasoHombre(temposnp.homocigotoMayorFr.getCantidadCasoHombre()+casohombre);
                             temposnp.homocigotoMayorFr.setCantidadCasoMujer(temposnp.homocigotoMayorFr.getCantidadCasoMujer()+casomujer);
@@ -123,7 +124,7 @@ public class ProcesarSNPBasico extends Thread
                 }   
                     casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
                     System.out.println("Valor de J   "+ j+ " Final "+ finalP);
-                    j=0;
+         
 }
 
     @Override
