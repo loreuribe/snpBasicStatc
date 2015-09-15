@@ -60,7 +60,7 @@ public class PruebaLeerArchivo  {
                     if(control==0)
                     {
                     fileDetail = linea.split("\t");
-                    System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
+                    //System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                     totalSNP=fileDetail.length-6;
                     ProcesarPrimeraLinea();
                     control++;
@@ -68,7 +68,7 @@ public class PruebaLeerArchivo  {
                    else
                    {
                       fileDetail = linea.split("\t");
-                      System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
+                     // System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                       totalSNP=fileDetail.length-6;
                       ProcesarSiguientesLineas();
                    }
@@ -183,12 +183,16 @@ public class PruebaLeerArchivo  {
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
         pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        
+
+        //pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+       
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
         for(int i=0;i<10;i++)
            System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
         
+        System.out.println(pp.snpArray.size()+"-esimo " +  pp.snpArray.get( (pp.snpArray.size()-1)).toString());
        
-        System.out.println("Tamaño del arreglo "+pp.snpArray.size());
        
     }
     
