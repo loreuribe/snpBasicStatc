@@ -30,12 +30,12 @@ public class ProcesarSNPBasico extends Thread
     int total;
     String []fileDetail;
     static ArrayList<SNP> snpArray;
-    int inicioP;
-    int finalP;
+    int inicioP=0;
+    int finalP=0;
 
     public  ProcesarSNPBasico(String []fileDetail, ArrayList<SNP> snpArray,int inicioP,int finalP) {
         this.fileDetail = fileDetail;
-        snpArray = new ArrayList<SNP>();
+      //  snpArray = new ArrayList<SNP>();
         this.snpArray=snpArray;
         System.out.println("Instancie los datos");
         this.inicioP=inicioP;
@@ -82,13 +82,13 @@ public class ProcesarSNPBasico extends Thread
                     total+=1;
                 
                 String tipo=fileDetail[j];
-                System.out.println("Tipo "+ tipo);
                 
+                System.out.println("Valor de J   "+ j+ " Final "+ finalP);
                 while(j<finalP) 
                 {
                    temposnp = new SNP();
                    tipo=fileDetail[j];
-                   System.out.println("Tipo "+ tipo);
+                //   System.out.println("Tipo "+ tipo);
                    if(!tipo.substring(0,1).equals(tipo.substring(2)))
                         {
                             //System.out.println("heterocigoto  "+tipo);
@@ -123,6 +123,7 @@ public class ProcesarSNPBasico extends Thread
                 }   
                     casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
                     System.out.println("Valor de J   "+ j+ " Final "+ finalP);
+                    j=0;
 }
 
     @Override

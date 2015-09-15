@@ -62,13 +62,13 @@ public class PruebaLeerArchivo  {
                     ProcesarPrimeraLinea();
                     control++;
                    }
-                   else
+                   /*else
                    {
                       fileDetail = linea.split("\t");
                       System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                       totalSNP=fileDetail.length-6;
                       //ProcesarSiguientesLineas();
-                   }
+                   }*/
                 }
             }
             catch(Exception ex)
@@ -126,8 +126,10 @@ public class PruebaLeerArchivo  {
             arregloProcesosSNPBasico.add(basico);
         }
         
-        for(int i=0;i <arregloProcesosSNPBasico.size();i++)
+        //for(int i=0;i <arregloProcesosSNPBasico.size();i++)
+        for(int i=0;i <1;i++)
         {
+            System.out.println("inicio= "+arregloProcesosSNPBasico.get(i).inicioP+ "  Final= "+arregloProcesosSNPBasico.get(i).finalP);
             arregloProcesosSNPBasico.get(i).start();
             try {
              arregloProcesosSNPBasico.get(i).join();
@@ -154,7 +156,8 @@ public class PruebaLeerArchivo  {
             arregloProcesosSNPResto.add(resto);
         }
         
-        for(int i=0;i <arregloProcesosSNPResto.size();i++)
+        //for(int i=0;i <arregloProcesosSNPResto.size();i++)
+        for(int i=0;i <1;i++)
         {
             arregloProcesosSNPResto.get(i).start();
             try {
