@@ -152,11 +152,12 @@ public class PruebaLeerArchivo  {
         partirSNPS();
         //for(Particiones p:arregloParticiones)
          ProcesarSNPRestoIndividuos resto;
+          arregloProcesosSNPBasico = new ArrayList<ProcesarSNPBasico>();
         for(Particiones p:arregloParticiones)
         {
-            arregloProcesosSNPBasico = new ArrayList<ProcesarSNPBasico>();
+           
             
-            resto= new ProcesarSNPRestoIndividuos(fileDetail, snpArray, p.inicioP+6, p.finalP+6);
+            resto= new ProcesarSNPRestoIndividuos(fileDetail, snpArray, p.inicioP, p.finalP);
             arregloProcesosSNPResto.add(resto);
         }
         
