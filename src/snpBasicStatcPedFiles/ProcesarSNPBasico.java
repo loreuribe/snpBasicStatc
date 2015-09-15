@@ -35,7 +35,7 @@ public class ProcesarSNPBasico extends Thread
 
     public  ProcesarSNPBasico(String []fileDetail, ArrayList<SNP> snpArray,int inicioP,int finalP) {
         this.fileDetail = fileDetail;
-      //  snpArray = new ArrayList<SNP>();
+        //snpArray = new ArrayList<SNP>();
         this.snpArray=snpArray;
         System.out.println("Instancie los datos");
         this.inicioP=inicioP;
