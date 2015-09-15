@@ -67,7 +67,7 @@ public class PruebaLeerArchivo  {
                       fileDetail = linea.split("\t");
                       System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                       totalSNP=fileDetail.length-6;
-                      ProcesarSiguientesLineas();
+                      //ProcesarSiguientesLineas();
                    }
                 }
             }
