@@ -86,7 +86,7 @@ public class PruebaLeerArchivo  {
     public void partirSNPS()
     {
        int i=0;
-       int  particion=(int) Math.ceil(totalSNP/cores);
+       int  particion=(int) Math.ceil(totalSNP/cores)+1;
        //int  particion=totalSNP/cores;
        int inicioP=0;
        int finalP=particion;
