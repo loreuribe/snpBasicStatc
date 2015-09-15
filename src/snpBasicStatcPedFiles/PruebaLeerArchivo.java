@@ -108,10 +108,10 @@ public class PruebaLeerArchivo  {
                
        }
        
-        for(Particiones pp:arregloParticiones)
+        /*for(Particiones pp:arregloParticiones)
         {
             System.out.println(pp.toString());
-        }
+        }*/
             
     }
     
@@ -133,7 +133,7 @@ public class PruebaLeerArchivo  {
         for(int i=0;i <arregloProcesosSNPBasico.size();i++)
         
         {
-            System.out.println("inicio= "+arregloProcesosSNPBasico.get(i).inicioP+ "  Final= "+arregloProcesosSNPBasico.get(i).finalP);
+            //System.out.println("inicio= "+arregloProcesosSNPBasico.get(i).inicioP+ "  Final= "+arregloProcesosSNPBasico.get(i).finalP);
             arregloProcesosSNPBasico.get(i).start();
             try {
              arregloProcesosSNPBasico.get(i).join();
@@ -148,7 +148,7 @@ public class PruebaLeerArchivo  {
     public void ProcesarSiguientesLineas() 
     //Inicio
     {
-        System.out.println("Entre a procesar el resto de lineas");
+        //System.out.println("Entre a procesar el resto de lineas");
         partirSNPS();
         //for(Particiones p:arregloParticiones)
          ProcesarSNPRestoIndividuos resto;
@@ -181,8 +181,8 @@ public class PruebaLeerArchivo  {
     {
         // TODO code application logic here
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
-        
+        //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
         for(int i=0;i<10;i++)
            System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());

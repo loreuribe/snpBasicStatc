@@ -28,7 +28,6 @@ public class ProcesarSNPRestoIndividuos extends Thread
         this.fileDetail = fileDetail;
         //snpArray = new ArrayList<SNP>();
         this.snpArray=snpArray;
-        System.out.println("Instancie los datos");
         this.inicioP=inicioP;
         this.finalP=finalP;
     }
@@ -42,35 +41,35 @@ public class ProcesarSNPRestoIndividuos extends Thread
         SNP temposnp = null;
         int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
         int j=inicioP;
-        System.out.println("Valor de J   "+ j);
-         System.out.println("Valo Final"+ finalP);
+        //System.out.println("Valor de J   "+ j);
+        //System.out.println("Valo Final"+ finalP);
         int i=4;
                  
                     // hombre - control
                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
                     {
-                        System.out.println("Hombre Control");
+                       // System.out.println("Hombre Control");
                         controlhombre+=1;
                         
                     }
                     //hombre -caso
                     if(fileDetail[i].equals("1") && fileDetail[i+1].equals("1"))
                     {
-                        System.out.println("Hombre Caso");
+                        //System.out.println("Hombre Caso");
                         casohombre+=1;
                         
                     }
                     //mujer control
                    if(fileDetail[i].equals("2") && fileDetail[i+1].equals("0"))
                     {
-                        System.out.println("Mujer control");
+                       // System.out.println("Mujer control");
                         controlmujer+=1;
                         
                     }
                     //mujer - caso
                     if(fileDetail[i].equals("2") && fileDetail[i+1].equals("1"))
                     {
-                        System.out.println("Mujer Caso");
+                       // System.out.println("Mujer Caso");
                         casomujer+=1;
                         
                     }
@@ -129,7 +128,7 @@ public class ProcesarSNPRestoIndividuos extends Thread
                     
                 }      
                  casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
-                 System.out.println("Valor de J   "+ j+ " Final "+ finalP);
+                // System.out.println("Valor de J   "+ j+ " Final "+ finalP);
     }
 
     @Override

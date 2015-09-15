@@ -47,8 +47,8 @@ public class ProcesarSNPBasico extends Thread
         SNP temposnp = null;
         int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
         int j=inicioP;
-        System.out.println("Valor de J   "+ j);
-         System.out.println("Valo Final"+ finalP);
+        //System.out.println("Valor de J   "+ j);
+        // System.out.println("Valo Final"+ finalP);
         int i=4;
                  
                     // hombre - control
@@ -123,7 +123,7 @@ public class ProcesarSNPBasico extends Thread
                   j++;
                 }   
                     casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
-                    System.out.println("Valor de J   "+ j+ " Final "+ finalP);
+                    //System.out.println("Valor de J   "+ j+ " Final "+ finalP);
          
 }
 
