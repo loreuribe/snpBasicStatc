@@ -119,13 +119,14 @@ public class PruebaLeerArchivo  {
     public void ProcesarPrimeraLinea() 
     {
         partirSNPS();
-        //for(Particiones p:arregloParticiones)
+        //
          ProcesarSNPBasico basico;
          arregloProcesosSNPBasico = new ArrayList<ProcesarSNPBasico>();
-        for(int i=0;i<arregloParticiones.size();i++)
+        //for(int i=0;i<arregloParticiones.size();i++)
+        for(Particiones p:arregloParticiones)
         {
          
-            basico= new ProcesarSNPBasico(fileDetail, snpArray, arregloParticiones.get(i).inicioP+6, arregloParticiones.get(i).finalP+6);
+            basico= new ProcesarSNPBasico(fileDetail, snpArray, p.inicioP+6, p.finalP+6);
             arregloProcesosSNPBasico.add(basico);
         }
         
@@ -151,11 +152,11 @@ public class PruebaLeerArchivo  {
         partirSNPS();
         //for(Particiones p:arregloParticiones)
          ProcesarSNPRestoIndividuos resto;
-        for(int i=0;i<arregloParticiones.size();i++)
+        for(Particiones p:arregloParticiones)
         {
             arregloProcesosSNPBasico = new ArrayList<ProcesarSNPBasico>();
             
-            resto= new ProcesarSNPRestoIndividuos(fileDetail, snpArray, arregloParticiones.get(i).inicioP+6, arregloParticiones.get(i).finalP+6);
+            resto= new ProcesarSNPRestoIndividuos(fileDetail, snpArray, p.inicioP+6, p.finalP+6);
             arregloProcesosSNPResto.add(resto);
         }
         
