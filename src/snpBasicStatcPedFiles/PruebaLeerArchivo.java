@@ -8,6 +8,7 @@ package snpBasicStatcPedFiles;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
@@ -30,7 +31,11 @@ public class PruebaLeerArchivo  {
      public SNP temposnp=null;
      String[] fileDetail;
      int contlineas=0;
+     //Procesor number in java
      int cores =Runtime.getRuntime().availableProcessors();
+     //Load procesor in java
+     double man = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
+             
      int totalSNP;
      String  linea;
      ArrayList<String> textoArchivo;
@@ -60,7 +65,7 @@ public class PruebaLeerArchivo  {
                     if(control==0)
                     {
                     fileDetail = linea.split("\t");
-                    //System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
+                    System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                     totalSNP=fileDetail.length-6;
                     ProcesarPrimeraLinea();
                     control++;
@@ -190,9 +195,9 @@ public class PruebaLeerArchivo  {
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
         for(int i=0;i<10;i++)
            System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
-        
-        System.out.println(pp.snpArray.size()+"-esimo " +  pp.snpArray.get( (pp.snpArray.size()-1)).toString());
-       
+        System.out.println((pp.snpArray.size()-2)+"-esimo " +  pp.snpArray.get( (pp.snpArray.size()-2)).toString());
+        System.out.println((pp.snpArray.size()-1)+"-esimo " +  pp.snpArray.get( (pp.snpArray.size()-1)).toString());
+       double man = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
        
     }
     
