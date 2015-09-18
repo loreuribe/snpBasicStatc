@@ -167,6 +167,8 @@ public class ProcesarSNPBasico extends Thread
             }
         }
         
+        
+        
         System.out.println("Primero"+snpArray.get(0).toString());
         System.out.println("Primero"+snpArray.get(snpArray.size()-1));
         System.out.println("Tamaño del arreglo "+snpArray.size());

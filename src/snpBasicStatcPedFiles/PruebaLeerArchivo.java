@@ -41,6 +41,8 @@ public class PruebaLeerArchivo  {
      ArrayList<String> textoArchivo;
      ArrayList <ProcesarSNPBasico>arregloProcesosSNPBasico;
      ArrayList <ProcesarSNPRestoIndividuos>arregloProcesosSNPResto;
+     
+     long time_start, time_end;
   
      
      //
@@ -64,18 +66,21 @@ public class PruebaLeerArchivo  {
                     //textoArchivo.add(linea+"\n");
                     if(control==0)
                     {
+                    
                     fileDetail = linea.split("\t");
                     System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
                     totalSNP=fileDetail.length-6;
                     ProcesarPrimeraLinea();
+                    
                     control++;
                    }
                    else
                    {
+                      
                       fileDetail = linea.split("\t");
-                     // System.out.println("Tamaño de la cadena a procesar  "+fileDetail.length);
-                      totalSNP=fileDetail.length-6;
                       ProcesarSiguientesLineas();
+                      time_end = System.currentTimeMillis();
+                      
                    }
                 }
             }
@@ -113,10 +118,10 @@ public class PruebaLeerArchivo  {
                
        }
        
-        /*for(Particiones pp:arregloParticiones)
+        for(Particiones pp:arregloParticiones)
         {
             System.out.println(pp.toString());
-        }*/
+        }
             
     }
     
@@ -154,9 +159,9 @@ public class PruebaLeerArchivo  {
     //Inicio
     {
         //System.out.println("Entre a procesar el resto de lineas");
-        partirSNPS();
+   
         //for(Particiones p:arregloParticiones)
-         ProcesarSNPRestoIndividuos resto;
+         ProcesarSNPRestoIndividuos resto=null;
           arregloProcesosSNPResto = new ArrayList<ProcesarSNPRestoIndividuos>();
         for(Particiones p:arregloParticiones)
         {
@@ -166,8 +171,8 @@ public class PruebaLeerArchivo  {
             arregloProcesosSNPResto.add(resto);
         }
         
-        //for(int i=0;i <arregloProcesosSNPResto.size();i++)
-        for(int i=0;i <1;i++)
+        for(int i=0;i <arregloProcesosSNPResto.size();i++)
+        
         {
             arregloProcesosSNPResto.get(i).start();
             try {
@@ -185,18 +190,27 @@ public class PruebaLeerArchivo  {
     public static void main(String[] args) 
     {
         // TODO code application logic here
+        long time_start, time_end;
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
-        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
-        
+        time_start = System.currentTimeMillis();
+        //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+       
+        pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        time_end = System.currentTimeMillis();
+        System.out.println("Tiempo de Procesar una Línea "+ ( time_end - time_start ) +" milliseconds");
 
-        //pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+
+        //
        
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
-        for(int i=0;i<10;i++)
-           System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
-        System.out.println((pp.snpArray.size()-2)+"-esimo " +  pp.snpArray.get( (pp.snpArray.size()-2)).toString());
-        System.out.println((pp.snpArray.size()-1)+"-esimo " +  pp.snpArray.get( (pp.snpArray.size()-1)).toString());
+        for(int i=0;i<pp.snpArray.size();i++)
+        {    
+                 System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
+                 i=pp.snpArray.size();
+        }
+        
+        
        double man = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
        
     }
