@@ -118,10 +118,10 @@ public class PruebaLeerArchivo  {
                
        }
        
-        for(Particiones pp:arregloParticiones)
+        /*for(Particiones pp:arregloParticiones)
         {
             System.out.println(pp.toString());
-        }
+        }*/
             
     }
     
@@ -198,7 +198,7 @@ public class PruebaLeerArchivo  {
        
         pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
         time_end = System.currentTimeMillis();
-        System.out.println("Tiempo de Procesar una Línea "+ ( time_end - time_start ) +" milliseconds");
+        System.out.println("Tiempo de Procesar Todo "+ ( time_end - time_start ) +" milliseconds");
 
 
         //
@@ -207,6 +207,7 @@ public class PruebaLeerArchivo  {
         for(int i=0;i<pp.snpArray.size();i++)
         {    
                  System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
+                  System.out.println((pp.snpArray.size()-1)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-1)).toString());
                  i=pp.snpArray.size();
         }
         
