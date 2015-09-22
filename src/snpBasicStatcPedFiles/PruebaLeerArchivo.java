@@ -53,6 +53,13 @@ public class PruebaLeerArchivo  {
        
         
     }
+
+    public static ArrayList<SNP> getSnpArray() {
+        return snpArray;
+    }
+
+    
+     
      
     //Método que lee de datos de un archivo 
      
@@ -184,21 +191,47 @@ public class PruebaLeerArchivo  {
         }
     }//Find del Método
         
-        
+     
+    
+    
+    
+    public void procesar()
+    {
+        long time_start, time_end;
+        time_start = System.currentTimeMillis();
+        String filePed="X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped";
+        leer_Archivo(filePed);
+        time_end = System.currentTimeMillis();
+        System.out.println("Tiempo de Procesar ARchivo "+ ( time_end - time_start ) +" milliseconds");
+        for(Particiones p:arregloParticiones)
+        {
+           
+            
+            try {
+                ProcesamientoPED ped= new ProcesamientoPED(snpArray, p.inicioP, p.finalP);
+                ped.start();
+                ped.join();
+            } catch (InterruptedException ex) {
+                Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+        }
+    }
        
     
     public static void main(String[] args) 
     {
         // TODO code application logic here
-        long time_start, time_end;
+        
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-        //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
-        time_start = System.currentTimeMillis();
-        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        pp.procesar();
+        
+//pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+        
+        
        
         //pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
-        time_end = System.currentTimeMillis();
-        System.out.println("Tiempo de Procesar Todo "+ ( time_end - time_start ) +" milliseconds");
+        
 
 
         //
@@ -214,7 +247,7 @@ public class PruebaLeerArchivo  {
          System.out.println((pp.snpArray.size()-2)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-2)).toString());
          System.out.println((pp.snpArray.size()-1)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-1)).toString());
         
-       double man = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
+         
        
     }
     
