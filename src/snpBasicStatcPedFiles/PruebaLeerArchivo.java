@@ -225,20 +225,13 @@ public class PruebaLeerArchivo  {
     public static void main(String[] args) 
     {
         // TODO code application logic here
-        
+        //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
+        //pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        //
+
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         pp.procesar();
-        
-//pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
-        
-        
-       
-        //pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
-        
-
-
-        //
-       
+ 
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
         for(int i=0;i<10;i++)
         {    
