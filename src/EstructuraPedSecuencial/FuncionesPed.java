@@ -1,4 +1,4 @@
-package snpBasicStatcPedFiles;
+package EstructuraPedSecuencial;
 
 
 import java.io.BufferedReader;
@@ -75,7 +75,7 @@ public class FuncionesPed {
             String textoTemp_2;
             StringTokenizer  token;
             for(i=0; i<arrayS.size(); i++){
-                System.out.println("for 1");
+                
                 textoTemp_2 = new String();
                 token = new StringTokenizer(arrayS.get(i));
                 int cont=0;
@@ -121,7 +121,7 @@ public class FuncionesPed {
                         }                   
                     }
                     cont++;
-                    System.out.println(cont);
+                    
                 }      
                 arrayS.set(i, textoTemp_2);
                 //System.out.println(textoTemp_2);

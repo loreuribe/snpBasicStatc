@@ -1,6 +1,6 @@
 package snpBasicStatc;
 
-import snpBasicStatcPedFiles.FuncionesPed;
+import EstructuraPedSecuencial.FuncionesPed;
 import com.sun.tracing.dtrace.ArgsAttributes;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;

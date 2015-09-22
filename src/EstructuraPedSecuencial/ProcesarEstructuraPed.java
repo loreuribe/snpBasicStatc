@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package snpBasicStatcPedFiles;
+package EstructuraPedSecuencial;
 
+import EstructuraPedSecuencial.FuncionesPed;
 import java.util.ArrayList;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -217,7 +218,12 @@ public class ProcesarEstructuraPed {
     
     
     public static void main(String[] args) {
+        
+        long time_start = System.currentTimeMillis();
         ProcesarEstructuraPed ped = new ProcesarEstructuraPed();
+        long time_end = System.currentTimeMillis();
+        System.out.println("Tiempo de Procesar Todo "+ ( time_end - time_start ) +" milliseconds");
+        
         //ped.organizarSNP();
         
     }
