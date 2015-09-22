@@ -194,9 +194,9 @@ public class PruebaLeerArchivo  {
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped");
         time_start = System.currentTimeMillis();
-        //pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        pp.leer_Archivo("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
        
-        pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
+        //pp.leer_Archivo("/home/auribe/doctorado/plink-1.07-x86_64/datosPLINK/hapmap1/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped");
         time_end = System.currentTimeMillis();
         System.out.println("Tiempo de Procesar Todo "+ ( time_end - time_start ) +" milliseconds");
 
@@ -204,13 +204,15 @@ public class PruebaLeerArchivo  {
         //
        
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
-        for(int i=0;i<pp.snpArray.size();i++)
+        for(int i=0;i<10;i++)
         {    
                  System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
-                  System.out.println((pp.snpArray.size()-1)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-1)).toString());
-                 i=pp.snpArray.size();
+                 
+                 //i=pp.snpArray.size();
         }
-        
+         System.out.println((pp.snpArray.size()/2)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()/2)).toString());
+         System.out.println((pp.snpArray.size()-2)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-2)).toString());
+         System.out.println((pp.snpArray.size()-1)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-1)).toString());
         
        double man = ManagementFactory.getOperatingSystemMXBean().getSystemLoadAverage();
        

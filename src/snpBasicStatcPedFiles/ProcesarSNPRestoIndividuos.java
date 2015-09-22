@@ -6,6 +6,7 @@
 package snpBasicStatcPedFiles;
 
 import java.util.ArrayList;
+import snpBasicStatc.Gen;
 import snpBasicStatc.SNP;
 
 /**
@@ -96,6 +97,7 @@ public class ProcesarSNPRestoIndividuos extends Thread
                        if(fileDetail[j+6].substring(0,1).equals("0"))
                         {   //System.out.println("NA  "+tipo);
                             snpArray.get(j).NA.setTipo("NA");
+                            snpArray.get(j).NA.setCantidad          (   snpArray.get(j).NA.getCantidad()+total);
                             snpArray.get(j).NA.setCantidadCasoHombre(snpArray.get(j).NA.getCantidadCasoHombre()+casohombre);
                             snpArray.get(j).NA.setCantidadCasoMujer(snpArray.get(j).NA.getCantidadCasoMujer()+casomujer);
                             snpArray.get(j).NA.setCantidadControlHombre(snpArray.get(j).NA.getCantidadControlHombre()+controlhombre);
@@ -108,6 +110,7 @@ public class ProcesarSNPRestoIndividuos extends Thread
                             if(tipo.equals(snpArray.get(j).homocigotoMayorFr.getTipo()) )
                             {
                                snpArray.get(j).homocigotoMayorFr.setTipo(tipo);
+                               snpArray.get(j).homocigotoMayorFr.setCantidad          (   snpArray.get(j).homocigotoMayorFr.getCantidad()+total);
                                snpArray.get(j).homocigotoMayorFr.setCantidadCasoHombre(snpArray.get(j).homocigotoMayorFr.getCantidadCasoHombre()+casohombre);
                                snpArray.get(j).homocigotoMayorFr.setCantidadCasoMujer(snpArray.get(j).homocigotoMayorFr.getCantidadCasoMujer()+casomujer);
                                snpArray.get(j).homocigotoMayorFr.setCantidadControlHombre(snpArray.get(j).homocigotoMayorFr.getCantidadControlHombre()+controlhombre);
@@ -116,12 +119,21 @@ public class ProcesarSNPRestoIndividuos extends Thread
                             else
                             {
                                snpArray.get(j).homocigotoMenorFr.setTipo(tipo);
+                               snpArray.get(j).homocigotoMenorFr.setCantidad          (   snpArray.get(j).homocigotoMenorFr.getCantidad()+total);
                                snpArray.get(j).homocigotoMenorFr.setCantidadCasoHombre(snpArray.get(j).homocigotoMenorFr.getCantidadCasoHombre()+casohombre);
                                snpArray.get(j).homocigotoMenorFr.setCantidadCasoMujer(snpArray.get(j).homocigotoMenorFr.getCantidadCasoMujer()+casomujer);
                                snpArray.get(j).homocigotoMenorFr.setCantidadControlHombre(snpArray.get(j).homocigotoMenorFr.getCantidadControlHombre()+controlhombre);
                                snpArray.get(j).homocigotoMenorFr.setCantidadControlMujer(snpArray.get(j).homocigotoMenorFr.getCantidadControlMujer()+controlmujer);
                                 
                             }
+                            
+                            if(snpArray.get(j).homocigotoMayorFr.getCantidad()<snpArray.get(j).homocigotoMenorFr.getCantidad())
+                            {
+                                Gen tempsnp=snpArray.get(j).homocigotoMayorFr;
+                                snpArray.get(j).homocigotoMayorFr= snpArray.get(j).homocigotoMenorFr;
+                                snpArray.get(j).homocigotoMenorFr=tempsnp;       
+                             
+                            }    
                         }
                         j++;
                     
