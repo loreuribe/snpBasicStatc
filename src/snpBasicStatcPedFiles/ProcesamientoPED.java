@@ -46,7 +46,7 @@ public class ProcesamientoPED extends Thread{
     public void run()
     {
         for(int  i=inicioP; i<finalP;i++)
-        frecuenciasAlelicas(i);
+            System.out.println(frecuenciasAlelicas(i));
     }
     
 }
