@@ -17,7 +17,7 @@ import static snpBasicStatcPedFiles.PruebaLeerArchivo.snpArray;
  */
 public class ProcesamientoPED extends Thread{
     
-      private ArrayList<SNP> snp;
+      public static  ArrayList<SNP> snp;
       private ArrayList <Particiones>particiones;
       private int inicioP;
       private int finalP;
@@ -33,12 +33,16 @@ public class ProcesamientoPED extends Thread{
      
           
     
-    public synchronized String frecuenciasAlelicas(int numhilo)
+    synchronized public String frecuenciasAlelicas(int numhilo)
     {
       String cadena="----------------------------------------SNP_"+(numhilo+1)+" Frecuencias Alelicas---------------------------------------------------------------------\n";
-      cadena=cadena + "Alelo     Total         Frecuencias\n";
-      cadena=snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"         "+snp.get(numhilo).ConteoAlelosMayorFr()+"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMayorFr()+ "\n";
-      cadena=snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr();
+      cadena+=cadena + "Alelo     Total         Frecuencias\n";
+      cadena+=snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"         "+snp.get(numhilo).ConteoAlelosMayorFr()+"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMayorFr()+ "\n";
+      if(snp.get(numhilo).homocigotoMenorFr.getTipo()==null)
+         cadena+=snp.get(numhilo).heterocigoto.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr();
+      else
+         cadena+=snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr();
+      
       return cadena;
     }
     

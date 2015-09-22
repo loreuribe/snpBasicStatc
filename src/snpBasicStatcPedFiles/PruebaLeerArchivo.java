@@ -203,12 +203,15 @@ public class PruebaLeerArchivo  {
         leer_Archivo(filePed);
         time_end = System.currentTimeMillis();
         System.out.println("Tiempo de Procesar ARchivo "+ ( time_end - time_start ) +" milliseconds");
+        ProcesamientoPED ped;
+        ArrayList <ProcesamientoPED>arregloProcesamientoPED = new ArrayList<ProcesamientoPED>();
+        System.out.println("tamano arreglo particiones  "+arregloParticiones.size());
         for(Particiones p:arregloParticiones)
         {
            
             
             try {
-                ProcesamientoPED ped= new ProcesamientoPED(snpArray, p.inicioP, p.finalP);
+                ped= new ProcesamientoPED(snpArray, p.inicioP, p.finalP);
                 ped.start();
                 ped.join();
             } catch (InterruptedException ex) {
