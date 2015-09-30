@@ -854,7 +854,10 @@ public class SNP {
               "NA CAH  "+ NA.getCantidadCasoHombre()+" CAM  "+NA.getCantidadCasoMujer()+" COH "+NA.getCantidadControlHombre()+" COM "+NA.getCantidadControlMujer()+'\n'+
               "homocigotoMayorFr= CAH "+ homocigotoMayorFr.getCantidadCasoHombre()+" CAM "+homocigotoMayorFr.getCantidadCasoMujer()+" COH "+homocigotoMayorFr.getCantidadControlHombre()+" COM "+homocigotoMayorFr.getCantidadControlMujer()+ '\n'+ 
               "homocigotoMenorFr= CAH "+ homocigotoMenorFr.getCantidadCasoHombre()+" CAM "+homocigotoMenorFr.getCantidadCasoMujer()+" COH "+homocigotoMenorFr.getCantidadControlHombre()+" COM "+homocigotoMenorFr.getCantidadControlMujer()+ '\n'+ 
-              "Heterocigoto= CAH "+heterocigoto.getCantidadCasoHombre()+" CAM "+heterocigoto.getCantidadCasoMujer()+" COH "+heterocigoto.getCantidadControlHombre()+" COM "+heterocigoto.getCantidadControlMujer()+ '}' ;
+              "Heterocigoto= CAH "+heterocigoto.getCantidadCasoHombre()+" CAM "+heterocigoto.getCantidadCasoMujer()+" COH "+heterocigoto.getCantidadControlHombre()+" COM "+heterocigoto.getCantidadControlMujer()+ "\n"+
+              "TotalHoMaFr="+ homocigotoMayorFr.getCantidad()+" TotalHoMenorFr="+ homocigotoMenorFr.getCantidad()+ " TotalHetero="+heterocigoto.getCantidad()+ "\n"+
+              "Total Individuos"+ todosIndividuos()+'}' ;
+        
         
     }
      

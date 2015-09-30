@@ -35,13 +35,49 @@ public class ProcesamientoPED extends Thread{
     
     synchronized public String frecuenciasAlelicas(int numhilo)
     {
-      String cadena="----------------------------------------SNP_"+(numhilo+1)+" Frecuencias Alelicas---------------------------------------------------------------------\n";
-      cadena+=cadena + "Alelo     Total         Frecuencias\n";
-      cadena+=snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"         "+snp.get(numhilo).ConteoAlelosMayorFr()+"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMayorFr()+ "\n";
-      if(snp.get(numhilo).homocigotoMenorFr.getTipo()==null)
-         cadena+=snp.get(numhilo).heterocigoto.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr();
-      else
-         cadena+=snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr();
+       boolean flagHomoMay= snp.get(numhilo).homocigotoMayorFr.getTipo()!=null;
+       boolean flagHomoMen= snp.get(numhilo).homocigotoMenorFr.getTipo()!=null;
+       boolean flagHeter= snp.get(numhilo).heterocigoto.getTipo()!=null;
+       
+        String cadena=null;
+        cadena="----------------------------------------SNP_"+(numhilo+1)+" Frecuencias Alelicas---------------------------------------------------------------------\n";
+        cadena+="Alelo     Total         Frecuencias\n";
+      if(flagHomoMay && flagHomoMen && flagHeter) 
+      {  
+        cadena+= snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"         "+snp.get(numhilo).ConteoAlelosMayorFr()+"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMayorFr()+"\n";
+        cadena+=snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr()+"\n";
+        return cadena;
+      }
+      else if(flagHomoMay && flagHomoMen)
+      {
+        cadena+= snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"         "+snp.get(numhilo).ConteoAlelosMayorFr()+"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMayorFr()+"\n";
+        cadena+=snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr()+"\n";
+        return cadena;
+      }
+      else if(flagHomoMay && flagHeter)
+      {
+        cadena+= snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"         "+snp.get(numhilo).ConteoAlelosMayorFr()+"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMayorFr()+"\n";
+        if(snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1).equals(snp.get(numhilo).heterocigoto.getTipo().substring(0,1)))
+             cadena+=snp.get(numhilo).heterocigoto.getTipo().substring(2)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr()+"\n";
+        else    
+             cadena+=snp.get(numhilo).heterocigoto.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr()+"\n";
+        
+        
+        return cadena;
+      }
+      else if(flagHomoMen && flagHeter)
+      {
+        
+        cadena+= snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)+"         "+snp.get(numhilo).ConteoAlelosMayorFr()+"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMayorFr()+"\n";
+        if(snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1).equals(snp.get(numhilo).heterocigoto.getTipo().substring(0,1)))
+         cadena+=snp.get(numhilo).heterocigoto.getTipo().substring(2)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr()+"\n";
+        else    
+           cadena+=snp.get(numhilo).heterocigoto.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFr() +"          "+snp.get(numhilo).frecuenciasAlelicasTodosAleloMenorFr()+"\n";
+        return cadena;
+          
+      }
+      
+      
       
       return cadena;
     }

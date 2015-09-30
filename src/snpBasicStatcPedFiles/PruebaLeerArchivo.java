@@ -199,13 +199,25 @@ public class PruebaLeerArchivo  {
     {
         long time_start, time_end;
         time_start = System.currentTimeMillis();
-        String filePed="X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped";
+        String filePed="X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped";
         leer_Archivo(filePed);
         time_end = System.currentTimeMillis();
         System.out.println("Tiempo de Procesar ARchivo "+ ( time_end - time_start ) +" milliseconds");
         ProcesamientoPED ped;
         ArrayList <ProcesamientoPED>arregloProcesamientoPED = new ArrayList<ProcesamientoPED>();
         System.out.println("tamano arreglo particiones  "+arregloParticiones.size());
+        
+        System.out.println("Tamaño del arreglo "+snpArray.size());
+        for(int i=0;i<10;i++)
+        {    
+                 System.out.println(i+"-esimo " +  snpArray.get(i).toString());
+                 
+                 //i=pp.snpArray.size();
+        }
+         System.out.println((snpArray.size()/2)+"-esimo " +  snpArray.get((snpArray.size()/2)).toString());
+         System.out.println((snpArray.size()-2)+"-esimo " +  snpArray.get((snpArray.size()-2)).toString());
+         System.out.println((snpArray.size()-1)+"-esimo " +  snpArray.get((snpArray.size()-1)).toString());
+        
         for(Particiones p:arregloParticiones)
         {
            
