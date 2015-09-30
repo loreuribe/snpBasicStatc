@@ -99,9 +99,38 @@ public class PruebaLeerArchivo  {
             }             
         return textoArchivo;
     }
-    
-    
 
+    public void partirSNPS()
+    {
+
+        int particion = totalSNP / cores;
+        System.out.println( "CORES: " + cores + ", Particion: " + particion );
+        int inicioP;
+        int finalP;
+        Particiones p;
+        for ( int i=0; i<cores; i++ ){
+        inicioP = i * particion;
+
+        if ( i == cores - 1 ){
+            finalP = totalSNP;
+        }
+        else{
+            finalP = (i + 1) * particion;
+        }
+           p = new Particiones(inicioP, finalP);
+           arregloParticiones.add(p); 
+        }
+
+
+        for(Particiones pp:arregloParticiones)
+        {
+         System.out.println(pp.toString());
+        }
+
+}
+
+    
+    
     public void ProcesarPrimeraLinea() 
     {
         partirSNPS();
