@@ -197,7 +197,7 @@ public class PruebaLeerArchivo  {
     {
         long time_start, time_end;
         time_start = System.currentTimeMillis();
-        String filePed="X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hastaSNP8.ped";
+        String filePed="X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped";
         leer_Archivo(filePed);
         time_end = System.currentTimeMillis();
         System.out.println("Tiempo de Procesar ARchivo "+ ( time_end - time_start ) +" milliseconds");
