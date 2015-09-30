@@ -100,37 +100,6 @@ public class PruebaLeerArchivo  {
         return textoArchivo;
     }
     
-    public void partirSNPS()
-    {
-       int i=0;
-       int  particion=(int) Math.ceil(totalSNP/cores)+1;
-       //int  particion=totalSNP/cores;
-       int inicioP=0;
-       int finalP=particion;
-       
-       
-       do
-       {
-           Particiones p = new Particiones(inicioP, finalP);
-           arregloParticiones.add(p);
-           inicioP=finalP;
-           finalP=finalP+particion;
-        
-       }while( (totalSNP-finalP)>particion);
-       if(totalSNP%particion!=0)
-       {       
-               finalP=totalSNP;
-               Particiones p = new Particiones(inicioP, finalP);
-               arregloParticiones.add(p);
-               
-       }
-       
-        /*for(Particiones pp:arregloParticiones)
-        {
-            System.out.println(pp.toString());
-        }*/
-            
-    }
     
 
     public void ProcesarPrimeraLinea() 
@@ -199,7 +168,7 @@ public class PruebaLeerArchivo  {
     {
         long time_start, time_end;
         time_start = System.currentTimeMillis();
-        String filePed="X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped";
+        String filePed="X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\hastaSNP8.ped";
         leer_Archivo(filePed);
         time_end = System.currentTimeMillis();
         System.out.println("Tiempo de Procesar ARchivo "+ ( time_end - time_start ) +" milliseconds");
@@ -208,7 +177,7 @@ public class PruebaLeerArchivo  {
         System.out.println("tamano arreglo particiones  "+arregloParticiones.size());
         
         System.out.println("Tamaño del arreglo "+snpArray.size());
-        for(int i=0;i<10;i++)
+        for(int i=0;i<9;i++)
         {    
                  System.out.println(i+"-esimo " +  snpArray.get(i).toString());
                  
@@ -242,10 +211,11 @@ public class PruebaLeerArchivo  {
         //
 
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
+       
         pp.procesar();
  
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());
-        for(int i=0;i<10;i++)
+        for(int i=0;i<9;i++)
         {    
                  System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
                  
