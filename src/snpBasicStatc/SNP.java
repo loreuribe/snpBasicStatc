@@ -24,22 +24,30 @@ public class SNP {
     public Gen homocigotoMayorFr;
     public Gen heterocigoto;
     public Gen homocigotoMenorFr;
+    public int numIndiv;
  
     private Funciones fun;
     private ArrayList<Gen>[] snp;
 
-    public SNP(Gen dominanteHomo, Gen heterocigoto, Gen recesivoHomo) {
+    public SNP(Gen dominanteHomo, Gen heterocigoto, Gen recesivoHomo, int numIndiv) {
         this.homocigotoMayorFr = dominanteHomo;
         this.heterocigoto = heterocigoto;
         this.homocigotoMenorFr = recesivoHomo;
+        this.numIndiv = numIndiv;
     }
      public SNP()
      {
+         
           NA= new Gen();
           heterocigoto = new Gen();
           homocigotoMenorFr = new Gen();
           homocigotoMayorFr = new Gen();
           
+     }
+     
+     
+     public int getCantidadPorGenes(){
+         return homocigotoMayorFr.getCantidad() + homocigotoMenorFr.getCantidad() + heterocigoto.getCantidad() + NA.getCantidad();
      }
 
      
@@ -68,7 +76,7 @@ public class SNP {
     
      public int ConteoAlelosMayorFrControles()
     {
-        return (homocigotoMayorFr.getCantidadControlHombre()+homocigotoMayorFr.getCantidadControlMujer())*2+heterocigoto.getCantidadControlHombre()+heterocigoto.getCantidadControlMujer();
+        return ( homocigotoMayorFr.getCantidadControlHombre()+homocigotoMayorFr.getCantidadControlMujer() )*2+heterocigoto.getCantidadControlHombre()+heterocigoto.getCantidadControlMujer();
     }
     public int ConteoAlelosMenorFrControles()
     {
@@ -183,6 +191,7 @@ public class SNP {
     {
        
         double frecalelicaD= (double) (2 *     (homocigotoMayorFr.getCantidadControlHombre()+homocigotoMayorFr.getCantidadControlMujer() )   +  (heterocigoto.getCantidadControlHombre()+heterocigoto.getCantidadControlMujer()))/(double) (2*totalControlesporSNP());
+        //System.out.println( totalControlesporSNP() );
         return frecalelicaD;
     
     }
@@ -851,14 +860,11 @@ public class SNP {
     @Override
     public String toString() {
         return " SNP{" + "NA=" + NA.getTipo() + ", homocigotoMayorFr=" + homocigotoMayorFr.getTipo() + ", heterocigoto=" + heterocigoto.getTipo() + ", homocigotoMenorFr=" + homocigotoMenorFr.getTipo() + '\n'+ 
-              "NA CAH  "+ NA.getCantidadCasoHombre()+" CAM  "+NA.getCantidadCasoMujer()+" COH "+NA.getCantidadControlHombre()+" COM "+NA.getCantidadControlMujer()+'\n'+
-              "homocigotoMayorFr= CAH "+ homocigotoMayorFr.getCantidadCasoHombre()+" CAM "+homocigotoMayorFr.getCantidadCasoMujer()+" COH "+homocigotoMayorFr.getCantidadControlHombre()+" COM "+homocigotoMayorFr.getCantidadControlMujer()+ '\n'+ 
-              "homocigotoMenorFr= CAH "+ homocigotoMenorFr.getCantidadCasoHombre()+" CAM "+homocigotoMenorFr.getCantidadCasoMujer()+" COH "+homocigotoMenorFr.getCantidadControlHombre()+" COM "+homocigotoMenorFr.getCantidadControlMujer()+ '\n'+ 
-              "Heterocigoto= CAH "+heterocigoto.getCantidadCasoHombre()+" CAM "+heterocigoto.getCantidadCasoMujer()+" COH "+heterocigoto.getCantidadControlHombre()+" COM "+heterocigoto.getCantidadControlMujer()+ "\n"+
-              "TotalHoMaFr="+ homocigotoMayorFr.getCantidad()+" TotalHoMenorFr="+ homocigotoMenorFr.getCantidad()+ " TotalHetero="+heterocigoto.getCantidad()+ "\n"+
-              "Total Individuos"+ todosIndividuos()+'}' ;
-        
-        
+              "NA= CAH  "+ NA.getCantidadCasoHombre()+" CAM  "+NA.getCantidadCasoMujer()+" COH "+NA.getCantidadControlHombre()+" COM "+NA.getCantidadControlMujer() + "----TOTAL: " + NA.getCantidad() + '\n'+
+              "homocigotoMayorFr= CAH "+ homocigotoMayorFr.getCantidadCasoHombre()+" CAM "+homocigotoMayorFr.getCantidadCasoMujer()+" COH "+homocigotoMayorFr.getCantidadControlHombre()+" COM "+homocigotoMayorFr.getCantidadControlMujer()+ "----TOTAL: " + homocigotoMayorFr.getCantidad() + '\n'+ 
+              "homocigotoMenorFr= CAH "+ homocigotoMenorFr.getCantidadCasoHombre()+" CAM "+homocigotoMenorFr.getCantidadCasoMujer()+" COH "+homocigotoMenorFr.getCantidadControlHombre()+" COM "+homocigotoMenorFr.getCantidadControlMujer()+ "----TOTAL: " + homocigotoMenorFr.getCantidad() + '\n'+ 
+              "Heterocigoto= CAH "+heterocigoto.getCantidadCasoHombre()+" CAM "+heterocigoto.getCantidadCasoMujer()+" COH "+heterocigoto.getCantidadControlHombre()+" COM "+heterocigoto.getCantidadControlMujer()+ "----TOTAL: " + heterocigoto.getCantidad() + '\n' + 
+              "TOTAL GENES: " + getCantidadPorGenes() + '}' ;        
     }
      
      

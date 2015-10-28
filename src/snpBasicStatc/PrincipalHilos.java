@@ -28,7 +28,6 @@ public class PrincipalHilos extends Thread{
           
           time_start = System.currentTimeMillis();
           
-         
           for(int i=0;i<totalSNP;i++)
           {     p.setNumhilo(i);
               try {

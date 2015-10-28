@@ -15,7 +15,7 @@ import snpBasicStatc.SNP;
  */
 public class ProcesarSNPRestoIndividuos extends Thread
 {
-     int casohombre;
+    int casohombre;
     int casomujer;
     int controlhombre;
     int controlmujer;
@@ -39,15 +39,15 @@ public class ProcesarSNPRestoIndividuos extends Thread
     
     synchronized public void procesargrupoSNP()
     {
-        SNP temposnp = null;
-        int casohombre=0, casomujer=0, controlhombre=0, controlmujer=0, total=0;
+        
+        casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
         int j=inicioP;
         //System.out.println("Valor de J   "+ j);
         //System.out.println("Valo Final"+ finalP);
         int i=4;
                  
                     // hombre - control
-                   if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
+                    if(fileDetail[i].equals("1") && fileDetail[i+1].equals("0"))
                     {
                        // System.out.println("Hombre Control");
                         controlhombre+=1;
@@ -84,69 +84,69 @@ public class ProcesarSNPRestoIndividuos extends Thread
                    
                    tipo=fileDetail[j+6];
                   // System.out.println("Tipo "+ tipo);
-                        if( tipo.equals(snpArray.get(j).heterocigoto.getTipo())   || (!fileDetail[j+6].substring(0,1).equals(fileDetail[j+6].substring(2))  ))
+                   SNP snpRef = snpArray.get(j);
+                        if( tipo.equals(snpRef.heterocigoto.getTipo())   || (!fileDetail[j+6].substring(0,1).equals(fileDetail[j+6].substring(2))  ))
                         {
                             //System.out.println("heterocigoto  "+tipo);
-                            snpArray.get(j).heterocigoto.setTipo(tipo);
-                            snpArray.get(j).heterocigoto.setCantidad          (   snpArray.get(j).heterocigoto.getCantidad()+total);
-                            snpArray.get(j).heterocigoto.setCantidadCasoHombre(   snpArray.get(j).heterocigoto.getCantidadCasoHombre()+casohombre);
-                            snpArray.get(j).heterocigoto.setCantidadCasoMujer    (snpArray.get(j).heterocigoto.getCantidadCasoMujer()+casomujer);
-                            snpArray.get(j).heterocigoto.setCantidadControlHombre(snpArray.get(j).heterocigoto.getCantidadControlHombre()+controlhombre);
-                            snpArray.get(j).heterocigoto.setCantidadControlMujer (snpArray.get(j).heterocigoto.getCantidadControlMujer()+controlmujer);
+                            snpRef.heterocigoto.setTipo(tipo);
+                            snpRef.heterocigoto.setCantidad          (   snpRef.heterocigoto.getCantidad()+total);
+                            snpRef.heterocigoto.setCantidadCasoHombre(   snpRef.heterocigoto.getCantidadCasoHombre()+casohombre);
+                            snpRef.heterocigoto.setCantidadCasoMujer    (snpRef.heterocigoto.getCantidadCasoMujer()+casomujer);
+                            snpRef.heterocigoto.setCantidadControlHombre(snpRef.heterocigoto.getCantidadControlHombre()+controlhombre);
+                            snpRef.heterocigoto.setCantidadControlMujer (snpRef.heterocigoto.getCantidadControlMujer()+controlmujer);
                         }
                        if(fileDetail[j+6].substring(0,1).equals("0"))
                         {   //System.out.println("NA  "+tipo);
-                            snpArray.get(j).NA.setTipo("NA");
-                            snpArray.get(j).NA.setCantidad          (   snpArray.get(j).NA.getCantidad()+total);
-                            snpArray.get(j).NA.setCantidadCasoHombre(snpArray.get(j).NA.getCantidadCasoHombre()+casohombre);
-                            snpArray.get(j).NA.setCantidadCasoMujer(snpArray.get(j).NA.getCantidadCasoMujer()+casomujer);
-                            snpArray.get(j).NA.setCantidadControlHombre(snpArray.get(j).NA.getCantidadControlHombre()+controlhombre);
-                            snpArray.get(j).NA.setCantidadControlMujer(snpArray.get(j).NA.getCantidadControlMujer()+controlmujer);
+                            snpRef.NA.setTipo("NA");
+                            snpRef.NA.setCantidad          (   snpRef.NA.getCantidad()+total);
+                            snpRef.NA.setCantidadCasoHombre(snpRef.NA.getCantidadCasoHombre()+casohombre);
+                            snpRef.NA.setCantidadCasoMujer(snpRef.NA.getCantidadCasoMujer()+casomujer);
+                            snpRef.NA.setCantidadControlHombre(snpRef.NA.getCantidadControlHombre()+controlhombre);
+                            snpRef.NA.setCantidadControlMujer(snpRef.NA.getCantidadControlMujer()+controlmujer);
                         }
                         
                         if( fileDetail[j+6].substring(0,1).equals(fileDetail[j+6].substring(2)) &&  !(fileDetail[j+6].substring(0,1).equals("0")))
                         {   
                            
-                            if(tipo.equals(snpArray.get(j).homocigotoMayorFr.getTipo()) )
+                            if(tipo.equals(snpRef.homocigotoMayorFr.getTipo()) )
                             {
-                               snpArray.get(j).homocigotoMayorFr.setTipo(tipo);
-                               snpArray.get(j).homocigotoMayorFr.setCantidad          (   snpArray.get(j).homocigotoMayorFr.getCantidad()+total);
-                               snpArray.get(j).homocigotoMayorFr.setCantidadCasoHombre(snpArray.get(j).homocigotoMayorFr.getCantidadCasoHombre()+casohombre);
-                               snpArray.get(j).homocigotoMayorFr.setCantidadCasoMujer(snpArray.get(j).homocigotoMayorFr.getCantidadCasoMujer()+casomujer);
-                               snpArray.get(j).homocigotoMayorFr.setCantidadControlHombre(snpArray.get(j).homocigotoMayorFr.getCantidadControlHombre()+controlhombre);
-                               snpArray.get(j).homocigotoMayorFr.setCantidadControlMujer(snpArray.get(j).homocigotoMayorFr.getCantidadControlMujer()+controlmujer);
+                               snpRef.homocigotoMayorFr.setTipo(tipo);
+                               snpRef.homocigotoMayorFr.setCantidad          (   snpRef.homocigotoMayorFr.getCantidad()+total);
+                               snpRef.homocigotoMayorFr.setCantidadCasoHombre(snpRef.homocigotoMayorFr.getCantidadCasoHombre()+casohombre);
+                               snpRef.homocigotoMayorFr.setCantidadCasoMujer(snpRef.homocigotoMayorFr.getCantidadCasoMujer()+casomujer);
+                               snpRef.homocigotoMayorFr.setCantidadControlHombre(snpRef.homocigotoMayorFr.getCantidadControlHombre()+controlhombre);
+                               snpRef.homocigotoMayorFr.setCantidadControlMujer(snpRef.homocigotoMayorFr.getCantidadControlMujer()+controlmujer);
                             }
                             else
                             {
-                               snpArray.get(j).homocigotoMenorFr.setTipo(tipo);
-                               snpArray.get(j).homocigotoMenorFr.setCantidad          (   snpArray.get(j).homocigotoMenorFr.getCantidad()+total);
-                               snpArray.get(j).homocigotoMenorFr.setCantidadCasoHombre(snpArray.get(j).homocigotoMenorFr.getCantidadCasoHombre()+casohombre);
-                               snpArray.get(j).homocigotoMenorFr.setCantidadCasoMujer(snpArray.get(j).homocigotoMenorFr.getCantidadCasoMujer()+casomujer);
-                               snpArray.get(j).homocigotoMenorFr.setCantidadControlHombre(snpArray.get(j).homocigotoMenorFr.getCantidadControlHombre()+controlhombre);
-                               snpArray.get(j).homocigotoMenorFr.setCantidadControlMujer(snpArray.get(j).homocigotoMenorFr.getCantidadControlMujer()+controlmujer);
+                               snpRef.homocigotoMenorFr.setTipo(tipo);
+                               snpRef.homocigotoMenorFr.setCantidad          (   snpRef.homocigotoMenorFr.getCantidad()+total);
+                               snpRef.homocigotoMenorFr.setCantidadCasoHombre(snpRef.homocigotoMenorFr.getCantidadCasoHombre()+casohombre);
+                               snpRef.homocigotoMenorFr.setCantidadCasoMujer(snpRef.homocigotoMenorFr.getCantidadCasoMujer()+casomujer);
+                               snpRef.homocigotoMenorFr.setCantidadControlHombre(snpRef.homocigotoMenorFr.getCantidadControlHombre()+controlhombre);
+                               snpRef.homocigotoMenorFr.setCantidadControlMujer(snpRef.homocigotoMenorFr.getCantidadControlMujer()+controlmujer);
                                 
                             }
                             
-                            if(snpArray.get(j).homocigotoMayorFr.getCantidad()<snpArray.get(j).homocigotoMenorFr.getCantidad())
+                            if(snpRef.homocigotoMayorFr.getCantidad()<snpRef.homocigotoMenorFr.getCantidad())
                             {
-                                Gen tempsnp=snpArray.get(j).homocigotoMayorFr;
-                                snpArray.get(j).homocigotoMayorFr= snpArray.get(j).homocigotoMenorFr;
-                                snpArray.get(j).homocigotoMenorFr=tempsnp;       
-                             
+                                Gen tempsnp=snpRef.homocigotoMayorFr;
+                                snpRef.homocigotoMayorFr= snpRef.homocigotoMenorFr;
+                                snpRef.homocigotoMenorFr=tempsnp;                                       
                             }    
                         }
                         j++;
                     
                     
                 }      
-                 casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
+                 //casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
                 // System.out.println("Valor de J   "+ j+ " Final "+ finalP);
+                //System.gc();
     }
 
     @Override
     public void run() {
-        procesargrupoSNP();
-        
+        procesargrupoSNP();               
     }
                   
  }//Fin de la Clase

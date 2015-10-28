@@ -4,8 +4,9 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import snpBasicStatcPedFiles.Particiones;
 
-public class Procesamiento {
+public class Procesamiento extends Thread {
     
     
    protected Thread modelohilo;
@@ -29,7 +30,7 @@ public class Procesamiento {
         //procesar.Procesar_Archivo();
     }
 
-    public Procesamiento(int numhilo) {
+    public Procesamiento( Particiones p ) {
         
         procesar = new ProcesarEstructura();
         snp = new ArrayList<SNP>();
@@ -58,6 +59,11 @@ public class Procesamiento {
         return snp.size();
     }
     
+    @Override
+    public void run(){
+        
+    }
+    
     
     public synchronized void frecuenciasAlelicas()
     {
@@ -83,6 +89,9 @@ public class Procesamiento {
       System.out.println( snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)+ "         "+snp.get(numhilo).ConteoAlelosMenorFrControles()+"          "+snp.get(numhilo).frecuenciasAlelicasControlesAleloMenorFr());
       
     }
+    
+    
+    
     
     
     
@@ -231,6 +240,8 @@ public class Procesamiento {
         System.out.println(snp.get(numhilo).homocigotoMenorFr.getTipo()+ " Hombre "+snp.get(numhilo).homocigotoMenorFr.getCantidadControlHombre()+"      "+snp.get(numhilo).homocigotoMenorFr.getCantidadCasoHombre()+" "+snp.get(numhilo).oddRatioHombreMujerHomoMenorFr()+" ["+ snp.get(numhilo).intervaloConfianzaHombreMujeresMenorFrInf()+" "+snp.get(numhilo).intervaloConfianzaHombreMujeresMenorFrSup());      
         
     }
+    
+    
     
     public synchronized void analisisHombresMujeres()
     {
