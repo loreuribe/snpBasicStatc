@@ -42,7 +42,7 @@ public class ProcesarSNPBasico extends Thread
    
     synchronized public void procesargrupoSNP()
     {
-        System.out.println( "Inicio: " + inicioP + ", Final: " + finalP );
+        //System.out.println( "Inicio: " + inicioP + ", Final: " + finalP );
         SNP temposnp = null;
         casohombre=0; casomujer=0; controlhombre=0; controlmujer=0; total=0;
         int j=inicioP;
