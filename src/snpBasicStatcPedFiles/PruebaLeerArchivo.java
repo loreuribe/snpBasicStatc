@@ -251,8 +251,10 @@ public class PruebaLeerArchivo  {
                 procesamientoPed.join();
             } catch (InterruptedException ex) {
                 Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }            
+            }            
+        }    
+        
+        arregloProcesamientoPed = null;
         return snpJsonArray;        
     }
        
@@ -265,10 +267,10 @@ public class PruebaLeerArchivo  {
 
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         //String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped";
-        //String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hastaSNP1.ped";  //hastaSNP8.ped
-        String archivo = "/home/santiago/TG/hastaSNP8.ped";  //hastaSNP8.ped
+        String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hastaSNP1.ped";  //hastaSNP8.ped
+        //String archivo = "/home/santiago/TG/hastaSNP8.ped";  //hastaSNP8.ped
         JSONArray completeSnpJsonArray = pp.procesar( archivo );
-        //System.out.println( completeSnpJsonArray.toString() );
+        System.out.println( completeSnpJsonArray.toString() );
         //System.out.println(cadena);
         /*
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());

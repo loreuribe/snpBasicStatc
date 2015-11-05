@@ -126,37 +126,101 @@ public class Procesamiento extends Thread {
     
     
     }
+     
+     
+     
+     
     
     public synchronized void equilibrioHW()
     {
       System.out.println("-------------  Equilibrio HardyWeinberg Todos SNP_"+(numhilo+1)+" --------------------------------------------------------------");
-      System.out.println("                                "+snp.get(numhilo).homocigotoMayorFr.getTipo()+"    "+ snp.get(numhilo).heterocigoto.getTipo()+ "    "+ snp.get(numhilo).homocigotoMenorFr.getTipo()+ "    "+ snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"     "+ snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)    );
-      System.out.println("Todos los Sujetos Observados:   "+snp.get(numhilo).homocigotoMayorFr.getCantidad()+"    "+ snp.get(numhilo).heterocigoto.getCantidad()+ "    "+ snp.get(numhilo).homocigotoMenorFr.getCantidad()+ "    "+ snp.get(numhilo).ConteoAlelosMayorFr()+"    "+ snp.get(numhilo).ConteoAlelosMenorFr());
-      System.out.println("Todos los Sujetos Esperados :   "+snp.get(numhilo).esperadosTodosAlleloMayorFr()+"    "+ snp.get(numhilo).esperadosTodosHetero()+ "    "+ snp.get(numhilo).esperadosTodosAleloMenorFr());
-        System.out.println(""); 
-      System.out.println("Chi Cuadrado                :   "+snp.get(numhilo).chiCuadradoMayorFrecuenciaTodos()+"    "+ snp.get(numhilo).chiCuadradoMayorFrecuenciaTodos()+ "    "+ snp.get(numhilo).chiCuadradoMenorFrecuenciaTodos()+ " ="+snp.get(numhilo).sumachiCuadradoTodosSignificancia()+"  P-VALUE: "+ snp.get(numhilo).valorSignificanciaTodos());
+      System.out.println("                                "+
+              snp.get(numhilo).homocigotoMayorFr.getTipo()+"    "+ 
+              snp.get(numhilo).heterocigoto.getTipo()+ "    "+ 
+              snp.get(numhilo).homocigotoMenorFr.getTipo()+ "    "+ 
+              snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"     "+ 
+              snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)    );
+      
+      System.out.println("Todos los Sujetos Observados:   "+
+              snp.get(numhilo).homocigotoMayorFr.getCantidad()+"    "+ 
+              snp.get(numhilo).heterocigoto.getCantidad()+ "    "+ 
+              snp.get(numhilo).homocigotoMenorFr.getCantidad()+ "    "+ 
+              snp.get(numhilo).ConteoAlelosMayorFr()+"    "+ 
+              snp.get(numhilo).ConteoAlelosMenorFr());
+      
+      System.out.println("Todos los Sujetos Esperados :   "+
+              snp.get(numhilo).esperadosTodosAlleloMayorFr()+"    "+ 
+              snp.get(numhilo).esperadosTodosHetero()+ "    "+ 
+              snp.get(numhilo).esperadosTodosAleloMenorFr());
+      System.out.println(""); 
+      System.out.println("Chi Cuadrado                :   "+
+              snp.get(numhilo).chiCuadradoMayorFrecuenciaTodos()+"    "+ 
+              snp.get(numhilo).chiCuadradoHeterocigotoTodos()+ "    "+ 
+              snp.get(numhilo).chiCuadradoMenorFrecuenciaTodos()+ " ="+
+              snp.get(numhilo).sumachiCuadradoTodosSignificancia()+"  P-VALUE: "+  snp.get(numhilo).valorSignificanciaTodos());
     } 
     
     public synchronized void equilibrioHWCasos()
     {
       System.out.println("-------------  Equilibrio HardyWeinberg Casos SNP_"+(numhilo+1)+" --------------------------------------------------------------");
-      System.out.println("                   "+snp.get(numhilo).homocigotoMayorFr.getTipo()+"    "+ snp.get(numhilo).heterocigoto.getTipo()+ "    "+ snp.get(numhilo).homocigotoMenorFr.getTipo()+ "    "+ snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"     "+ snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)    );
-      System.out.println("Casos Observados   "+(snp.get(numhilo).homocigotoMayorFr.getCantidadCasoHombre()+snp.get(numhilo).homocigotoMayorFr.getCantidadCasoMujer())+"    "+(snp.get(numhilo).heterocigoto.getCantidadCasoHombre()+snp.get(numhilo).heterocigoto.getCantidadCasoMujer())+ "    "+ (snp.get(numhilo).homocigotoMenorFr.getCantidadCasoHombre()+snp.get(numhilo).homocigotoMenorFr.getCantidadCasoMujer())+ "    "+ snp.get(numhilo).ConteoAlelosMayorFrCasos()+"    "+ snp.get(numhilo).ConteoAlelosMenorFrCasos());
-      System.out.println("Casos Esperados    "+snp.get(numhilo).esperadosCasosAlleloMayorFr()+"    "+ snp.get(numhilo).esperadosCasosHetero()+ "    "+ snp.get(numhilo).esperadosCasosAleloMenorFr());
+      System.out.println("                   "+
+              snp.get(numhilo).homocigotoMayorFr.getTipo()+"    "+ 
+              snp.get(numhilo).heterocigoto.getTipo()+ "    "+ 
+              snp.get(numhilo).homocigotoMenorFr.getTipo()+ "    "+ 
+              snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"     "+ 
+              snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)    );
+      
+      System.out.println("Casos Observados   "+
+              (snp.get(numhilo).homocigotoMayorFr.getCantidadCasoHombre() + snp.get(numhilo).homocigotoMayorFr.getCantidadCasoMujer())+"    "+
+              (snp.get(numhilo).heterocigoto.getCantidadCasoHombre() + snp.get(numhilo).heterocigoto.getCantidadCasoMujer())+ "    "+ 
+              (snp.get(numhilo).homocigotoMenorFr.getCantidadCasoHombre() + snp.get(numhilo).homocigotoMenorFr.getCantidadCasoMujer())+ "    "+ 
+              snp.get(numhilo).ConteoAlelosMayorFrCasos()+"    " + 
+              snp.get(numhilo).ConteoAlelosMenorFrCasos());
+      
+      System.out.println("Casos Esperados    "+
+              snp.get(numhilo).esperadosCasosAlleloMayorFr()+"    "+ 
+              snp.get(numhilo).esperadosCasosHetero()+ "    "+ 
+              snp.get(numhilo).esperadosCasosAleloMenorFr());
       System.out.println(""); 
-      System.out.println("Chi Cuadrado  Casos: "+snp.get(numhilo).chiCuadradoMayorFrecuenciaCasos()+"    "+ snp.get(numhilo).chiCuadradoHeterocigotoCasos()+ "    "+ snp.get(numhilo).chiCuadradoMenorFrecuenciaCasos()+ " ="+snp.get(numhilo).sumachiCuadradoCasosSignificancia()+"  P-VALUE: "+ snp.get(numhilo).valorSignificanciaCasos());
+      System.out.println("Chi Cuadrado  Casos: "+
+              snp.get(numhilo).chiCuadradoMayorFrecuenciaCasos()+"    "+ 
+              snp.get(numhilo).chiCuadradoHeterocigotoCasos()+ "    "+ 
+              snp.get(numhilo).chiCuadradoMenorFrecuenciaCasos()+ " ="+
+              snp.get(numhilo).sumachiCuadradoCasosSignificancia()+"  P-VALUE: "+ snp.get(numhilo).valorSignificanciaCasos());
     } 
     
     public synchronized void equilibrioHWControles()
     {
       System.out.println("-------------  Equilibrio HardyWeinberg Controles SNP_"+(numhilo+1)+" --------------------------------------------------------------");
-      System.out.println("                   "+snp.get(numhilo).homocigotoMayorFr.getTipo()+"    "+ snp.get(numhilo).heterocigoto.getTipo()+ "    "+ snp.get(numhilo).homocigotoMenorFr.getTipo()+ "    "+ snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"     "+ snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)    );
-      System.out.println("Controles Observados   "+(snp.get(numhilo).homocigotoMayorFr.getCantidadControlHombre()+snp.get(numhilo).homocigotoMayorFr.getCantidadControlMujer())+"    "+(snp.get(numhilo).heterocigoto.getCantidadControlHombre()+snp.get(numhilo).heterocigoto.getCantidadControlMujer())+ "    "+ (snp.get(numhilo).homocigotoMenorFr.getCantidadControlHombre()+snp.get(numhilo).homocigotoMenorFr.getCantidadControlMujer())+ "    "+ snp.get(numhilo).ConteoAlelosMayorFrControles()+"    "+ snp.get(numhilo).ConteoAlelosMenorFrControles());
-      System.out.println("Controles Esperados    "+snp.get(numhilo).esperadosControlesAlleloMayorFr()+"    "+ snp.get(numhilo).esperadosControlesHetero()+ "    "+ snp.get(numhilo).esperadosControlesAleloMenorFr());
+      System.out.println("                   "+
+              snp.get(numhilo).homocigotoMayorFr.getTipo()+"    "+ 
+              snp.get(numhilo).heterocigoto.getTipo()+ "    "+ 
+              snp.get(numhilo).homocigotoMenorFr.getTipo()+ "    "+ 
+              snp.get(numhilo).homocigotoMayorFr.getTipo().substring(0,1)+"     "+ 
+              snp.get(numhilo).homocigotoMenorFr.getTipo().substring(0,1)    );
+      
+      System.out.println("Controles Observados   "+
+              (snp.get(numhilo).homocigotoMayorFr.getCantidadControlHombre()+snp.get(numhilo).homocigotoMayorFr.getCantidadControlMujer())+"    "+
+              (snp.get(numhilo).heterocigoto.getCantidadControlHombre()+snp.get(numhilo).heterocigoto.getCantidadControlMujer())+ "    "+ 
+              (snp.get(numhilo).homocigotoMenorFr.getCantidadControlHombre()+snp.get(numhilo).homocigotoMenorFr.getCantidadControlMujer())+ "    "+ 
+              snp.get(numhilo).ConteoAlelosMayorFrControles()+"    "+ 
+              snp.get(numhilo).ConteoAlelosMenorFrControles());
+      
+      System.out.println("Controles Esperados    "+
+              snp.get(numhilo).esperadosControlesAlleloMayorFr()+"    "+ 
+              snp.get(numhilo).esperadosControlesHetero()+ "    "+ 
+              snp.get(numhilo).esperadosControlesAleloMenorFr());
       System.out.println(""); 
-      System.out.println("Chi Cuadrado  Controles: "+snp.get(numhilo).chiCuadradoMayorFrecuenciaControles()+"    "+ snp.get(numhilo).chiCuadradoHeterocigotoControles()+ "    "+ snp.get(numhilo).chiCuadradoMenorFrecuenciaControles()+ " ="+snp.get(numhilo).sumachiCuadradoControlesSignificancia()+"  P-VALUE: "+ snp.get(numhilo).valorSignificanciaControles());
+      System.out.println("Chi Cuadrado  Controles: "+
+              snp.get(numhilo).chiCuadradoMayorFrecuenciaControles()+"    "+ 
+              snp.get(numhilo).chiCuadradoHeterocigotoControles()+ "    "+ 
+              snp.get(numhilo).chiCuadradoMenorFrecuenciaControles()+ " ="+
+              snp.get(numhilo).sumachiCuadradoControlesSignificancia()+"  P-VALUE: "+ snp.get(numhilo).valorSignificanciaControles());
       
     }
+    
+    
+    
     
     
     public synchronized void modeloCodominante()
