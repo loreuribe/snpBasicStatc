@@ -83,7 +83,7 @@ public class Funciones {
         return textoArchivo;
     }
     
-    public ArrayList<Gen>[] llenar_Estructura(ArrayList<String> arrayS){ 
+    public ArrayList<Gen>[] llenar_Estructura(ArrayList<String> arrayS){
         long tInicio = System.currentTimeMillis();
         Thread Hilo = new Thread(()->{            
             int i, j, cantSNP=0;

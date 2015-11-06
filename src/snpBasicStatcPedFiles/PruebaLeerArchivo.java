@@ -10,6 +10,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.IOException;
 import java.io.Writer;
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import jdk.jfr.events.FileWriteEvent;
 import org.json.JSONArray;
 import snpBasicStatc.Gen;
 import snpBasicStatc.SNP;
@@ -29,10 +31,7 @@ public class PruebaLeerArchivo  {
      
     //JSONArray que almacena los SNP con sus respectivos cálculos
     private JSONArray snpJsonArray;
-    
-    //Archivo que almacena los resultados
-    private File archivoSalida;
-    
+    private String ruta;
     
     ArrayList <Particiones>arregloParticiones;
     
@@ -65,10 +64,7 @@ public class PruebaLeerArchivo  {
         
         this.snpJsonArray = new JSONArray();
         
-        this.archivoSalida = new File( "test.txt" );
-        if ( archivoSalida.exists() ){
-            this.archivoSalida.delete();
-        }
+              
     }
 
     public static ArrayList<SNP> getSnpArray() {
@@ -106,7 +102,7 @@ public class PruebaLeerArchivo  {
                       time_end = System.currentTimeMillis();
                       
                    }
-                }
+                }                
                 archivo.close();
             }
             catch(Exception ex)
@@ -217,8 +213,21 @@ public class PruebaLeerArchivo  {
     
     
     
-    public JSONArray procesar( String rutaArchivoPed )
-    {       
+    public String procesar( String rutaArchivoPed )
+    {         
+        String nombreArchivo = new File( rutaArchivoPed ).getName();
+        String ruta = String.format( "/home/santiago/snpJsonArray_%s.json", nombreArchivo.replace(".ped", "") );
+        FileWriter writer;
+        try {
+            writer = new FileWriter( ruta );
+            writer.write( "[" );
+        writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+        
+        
+        
         long time_start, time_end;
         time_start = System.currentTimeMillis();   
         leer_Archivo( rutaArchivoPed );
@@ -231,7 +240,7 @@ public class PruebaLeerArchivo  {
         for(int i=0; i<arregloParticiones.size(); i++)
         {    
             p = arregloParticiones.get(i);
-            ped = new ProcesamientoPED( snpArray, p.inicioP, p.finalP, archivoSalida, snpJsonArray );
+            ped = new ProcesamientoPED( snpArray, p.inicioP, p.finalP, ruta, snpJsonArray, (fileDetail.length-6)-1 );
             arregloProcesamientoPed[i] = ped;
             
             /*
@@ -252,11 +261,37 @@ public class PruebaLeerArchivo  {
             } catch (InterruptedException ex) {
                 Logger.getLogger(PruebaLeerArchivo.class.getName()).log(Level.SEVERE, null, ex);
             }            
-        }    
+        }
+        
+        try {
+            writer = new FileWriter( ruta, true );
+            writer.append( "]" );
+        writer.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
         
         arregloProcesamientoPed = null;
-        return snpJsonArray;        
+        return ruta;
+        //return snpJsonArray;        
     }
+    
+    /*
+    private String escribirResultado( String rutaSnpJsonArray, JSONArray snpJsonArray ){
+        File temp = new File( rutaSnpJsonArray );
+        System.out.println( "Ruta snpJsonArray.json: " + temp.getAbsolutePath() );
+        try {
+            FileWriter writer = new FileWriter( rutaSnpJsonArray );
+            writer.write(  snpJsonArray.toString()  );
+            writer.close();
+            return temp.getAbsolutePath();
+        } 
+        catch (IOException ex) {
+            ex.printStackTrace();
+            return "";
+        }
+    }
+    */
        
     
     public static void main(String[] args) 
@@ -267,10 +302,12 @@ public class PruebaLeerArchivo  {
 
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
         //String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped";
-        String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hastaSNP1.ped";  //hastaSNP8.ped
-        //String archivo = "/home/santiago/TG/hastaSNP8.ped";  //hastaSNP8.ped
-        JSONArray completeSnpJsonArray = pp.procesar( archivo );
-        System.out.println( completeSnpJsonArray.toString() );
+        //String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hastaSNP1.ped";  //hastaSNP8.ped
+        String archivo = "/home/santiago/TG/hastaSNP8.ped";  //hastaSNP8.ped
+        //JSONArray completeSnpJsonArray = pp.procesar( archivo );
+        String rutaSnpJsonArray = pp.procesar( archivo );
+        //System.out.println( rutaSnpJsonArray );
+        
         //System.out.println(cadena);
         /*
         System.out.println("Tamaño del arreglo "+pp.snpArray.size());

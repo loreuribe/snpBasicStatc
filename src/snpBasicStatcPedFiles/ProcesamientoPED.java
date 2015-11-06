@@ -9,6 +9,7 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.logging.Level;
@@ -49,46 +50,26 @@ public class ProcesamientoPED extends Thread{
     private int inicioP;
     private int finalP;
 
-    private File archivoSalida;
+    private String ruta;
     private FileWriter writer;
 
     private JSONArray snpJsonArray;
+    
+    private int tamañoSNPS;
 
 
 
-    public ProcesamientoPED(ArrayList<SNP> snp, int inicioP, int finalP, File archivoSalida, JSONArray snpJsonArray) 
+    public ProcesamientoPED(ArrayList<SNP> snp, int inicioP, int finalP, String ruta, JSONArray snpJsonArray,
+            int tamañoSNPS ) 
     {
         this.snp = snp;
         this.inicioP=inicioP;
         this.finalP=finalP;
-        this.archivoSalida = archivoSalida;
-
+        this.ruta = ruta;
         this.snpJsonArray = snpJsonArray;
+        this.tamañoSNPS = tamañoSNPS;
+        //tSystem.out.println( tamañoSNPS );
     }
-
-    /*
-    private synchronized void escribirResultado( String cadena ){
-        FileWriter writer = null;
-        try {
-            writer = new FileWriter( this.archivoSalida, true );
-            writer.append( cadena );
-        } 
-        catch (IOException ex) {
-            ex.printStackTrace();
-        } 
-        finally {
-            try {
-                writer.close();
-            } 
-            catch (IOException ex) {
-               ex.printStackTrace();
-            }
-        }
-    }
-    */
-
-
-
 
 
 
@@ -178,7 +159,7 @@ public class ProcesamientoPED extends Thread{
         catch (org.json.JSONException error){
             error.printStackTrace();
         }
-        frecGenotipicasJsonObject = null;
+        //frecGenotipicasJsonObject = null;
         genotipos = null;
         totales =null;
         frecuencias = null;
@@ -314,7 +295,7 @@ public class ProcesamientoPED extends Thread{
         catch (org.json.JSONException error){
             error.printStackTrace();
         }
-        frecAlelicasJsonObject = null;
+        //frecAlelicasJsonObject = null;
         arregloAlelos = null;
         arregloTotales =null;
         arregloFrecuencias = null;
@@ -389,7 +370,7 @@ public class ProcesamientoPED extends Thread{
             error.printStackTrace();
         }
         
-        equilibrioHWJsonObject = null;
+        //equilibrioHWJsonObject = null;
         arregloGenotipos = null;
         arregloObservados = null;
         arregloEsperados = null;
@@ -638,6 +619,7 @@ public class ProcesamientoPED extends Thread{
             opcionesEquilibrioHW[2][4][1] = 0;
             opcionesEquilibrioHW[2][4][2] = "P-VALUE: "+  snpRef.valorSignificanciaControles();
             
+            /*
             System.out.println("-------------------------------------------");
             System.out.println( Arrays.toString( opcionesEquilibrioHW[0][0] )   );
             System.out.println( Arrays.toString( opcionesEquilibrioHW[0][1] )   );
@@ -645,11 +627,12 @@ public class ProcesamientoPED extends Thread{
             System.out.println( Arrays.toString( opcionesEquilibrioHW[0][3] )   );
             System.out.println( Arrays.toString( opcionesEquilibrioHW[0][4] )   );
             System.out.println("-------------------------------------------");
+            */
             
             conteoFrecuenciasAlelicas( i, FRECUENCIAS_ALELICAS_TODOS, snpJsonObject, snpRef, opcionesTotalesFrecAlelicas, opcionesFrecuenciasFrecAlelicas );
             conteoFrecuenciasAlelicas( i, FRECUENCIAS_ALELICAS_CASOS, snpJsonObject, snpRef, opcionesTotalesFrecAlelicas, opcionesFrecuenciasFrecAlelicas );
             conteoFrecuenciasAlelicas( i, FRECUENCIAS_ALELICAS_CONTROLES, snpJsonObject, snpRef, opcionesTotalesFrecAlelicas, opcionesFrecuenciasFrecAlelicas );
-            //frecuenciasGenotipicas( i, snpJsonObject );            
+            frecuenciasGenotipicas( i, snpJsonObject );            
             opcionesTotalesFrecAlelicas = null;
             opcionesFrecuenciasFrecAlelicas = null;
             
@@ -659,14 +642,28 @@ public class ProcesamientoPED extends Thread{
             opcionesTotalesFrecGen = null;
             opcionesFrecuenciasFrecGen = null;
             
+            
             conteoEquilibrioHW(i, EQUILIBRIO_HW_TODOS, snpJsonObject, snpRef, opcionesEquilibrioHW);
             conteoEquilibrioHW(i, EQUILIBRIO_HW_CASOS, snpJsonObject, snpRef, opcionesEquilibrioHW);
             conteoEquilibrioHW(i, EQUILIBRIO_HW_CONTROLES, snpJsonObject, snpRef, opcionesEquilibrioHW);
             opcionesEquilibrioHW = null;
             
-            
             //Se termina de agregar el snpJsonObject al snpJsonArray luego de haber completado todos los calculos
-            this.snpJsonArray.put( snpJsonObject );
+            //this.snpJsonArray.put( snpJsonObject );
+            
+            try {
+                FileWriter writer = new FileWriter(new File(ruta), true);
+                if ( i == tamañoSNPS ){
+                    System.out.println( i );
+                    writer.append( snpJsonObject.toString() );
+                }
+                else{
+                    writer.append( snpJsonObject.toString() + "," );
+                }
+                writer.close();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
             
         }
     }

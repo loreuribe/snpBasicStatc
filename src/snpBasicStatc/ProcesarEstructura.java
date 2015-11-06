@@ -27,6 +27,15 @@ public class ProcesarEstructura{
         Funciones funciones=new Funciones();
         
         arregloSNP=new ArrayList<SNP>();
+        /*
+        int acumuladorCasos;
+        int acumuladorControles;
+        String rutaArchivo = "/home/santiago/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped";
+        ArrayList <String> textoArchivo = funciones.leer_Archivo( rutaArchivo );
+        snp=funciones.llenar_Estructura(textoArchivo);        
+        Gen tempGen = new Gen();
+        */
+        
         choser = new JFileChooser();
         choser.setMultiSelectionEnabled(false);
         choser.addChoosableFileFilter(new FileNameExtensionFilter("Documento de texto (txt)", "txt"));
