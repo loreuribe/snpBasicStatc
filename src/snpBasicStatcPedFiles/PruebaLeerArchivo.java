@@ -215,8 +215,14 @@ public class PruebaLeerArchivo  {
     
     public String procesar( String rutaArchivoPed )
     {         
+        long time_Start_escritura = System.currentTimeMillis();
         String nombreArchivo = new File( rutaArchivoPed ).getName();
-        String ruta = String.format( "/home/santiago/snpJsonArray_%s.json", nombreArchivo.replace(".ped", "") );
+        // Ruta para cuando se ejecuta en Linux:
+        //String ruta = String.format( "/home/santiago/snpJsonArray_%s.json", nombreArchivo.replace(".ped", "") );
+        // Ruta para cuando se ejecuta en Windows:
+        String ruta = String.format( "D:\\snpJsonArray_%s.json", nombreArchivo.replace(".tmp", "") );  
+        // En Windows, los archivos temporales que gestiona Apache tienen extension .tmp, en Linux no quedan con extensión
+        
         FileWriter writer;
         try {
             writer = new FileWriter( ruta );
@@ -271,6 +277,8 @@ public class PruebaLeerArchivo  {
             ex.printStackTrace();
         }
         
+        long time_End_escritura = System.currentTimeMillis();
+        System.out.println( "---------------------------------IMPORTANTEEEE: TTiempo Finalizacion Escritura: " + (time_End_escritura - time_Start_escritura) + " ms ---------------------------------" );
         arregloProcesamientoPed = null;
         return ruta;
         //return snpJsonArray;        
@@ -301,32 +309,38 @@ public class PruebaLeerArchivo  {
         //
 
         PruebaLeerArchivo pp= new PruebaLeerArchivo();
-        //String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped";
-        //String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hastaSNP1.ped";  //hastaSNP8.ped
-        String archivo = "/home/santiago/TG/hastaSNP8.ped";  //hastaSNP8.ped
-        //JSONArray completeSnpJsonArray = pp.procesar( archivo );
+        String archivo = "G:\\SANTI\\hastaSNP150000.ped";
+        //String archivo = "D:\\Google Drive\\Semestre X - FINAL\\Trabajo de Grado - GWAS\\archivos de entrada\\hastaSNP8.ped";  //hastaSNP8.ped
+        //String archivo = "/home/santiago/TG/hastaSNP8.ped";  //hastaSNP8.ped
         String rutaSnpJsonArray = pp.procesar( archivo );
-        //System.out.println( rutaSnpJsonArray );
-        
-        //System.out.println(cadena);
-        /*
-        System.out.println("Tamaño del arreglo "+pp.snpArray.size());
-        for(int i=0;i<9;i++)
-        {    
-                 System.out.println(i+"-esimo " +  pp.snpArray.get(i).toString());
-                 
-                 //i=pp.snpArray.size();
-        }
-        System.out.println((pp.snpArray.size()/2)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()/2)).toString());
-        System.out.println((pp.snpArray.size()-2)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-2)).toString());
-        System.out.println((pp.snpArray.size()-1)+"-esimo " +  pp.snpArray.get((pp.snpArray.size()-1)).toString());
-        */
+        System.out.println( rutaSnpJsonArray );
         
         /*
-        for(int i=0; i<snpArray.size(); i++){    
-            System.out.println((i+1)+"-esimo " +  pp.snpArray.get(i).toString() + "\n");
-        }
+        IMPORTANTEEE:
+            Cambios Necesarios para ejecutar en las plataformas:
+            LINUX Server:
+                - Cambiar la ruta del archivo de entrada por: 
+                      /home/santiago/hastaSNP8.ped, en PruebaLeerArchivo.main()
+        
+                - Cambiar la Ruta de almacenamiento del archivo .json con los cálculos:  
+                      "/home/santiago/snpJsonArray_%s.json" en PruebaLeerArchivo.procesar()
+        
+                - Cambiar el tamaño del Java Heap Size:
+                       Click derecho en el proyecto, Properties, Apartado Run, Campo VM Options y colocar -Xms20g -Xmx20g
+        
+            Windows:
+                - Cambiar la ruta del archivo de entrada por: 
+                      /home/santiago/hastaSNP8.ped, en PruebaLeerArchivo.main()
+        
+                - Cambiar la Ruta de almacenamiento del archivo .json con los cálculos:  
+                      "/home/santiago/snpJsonArray_%s.json" en PruebaLeerArchivo.procesar()
+                
+                - Cambiar el tamaño del Java Heap Size:
+                       Click derecho en el proyecto, Properties, Apartado Run, Campo VM Options y colocar -Xms1g -Xmx1g
+                
         */
+        
+       
         
         
         

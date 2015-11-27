@@ -144,7 +144,7 @@ public class ProcesarSNPBasico extends Thread
         int totalSNP;
         try {
         
-            archivo = new BufferedReader(new FileReader(new File("X:\\doctorado\\plink-1.07-x86_64\\datosPLINK\\hapmap1\\prueba.ped")));
+            archivo = new BufferedReader(new FileReader(new File("/home/santiago/TG/hapmap3_r1_b36_fwd.ASW.qc.poly.recode.ped")));
             int control=0;
             while((linea=archivo.readLine())!=null)
             {
@@ -155,6 +155,8 @@ public class ProcesarSNPBasico extends Thread
                     totalSNP=fileDetail.length-6;
                     ProcesarSNPBasico basico = new ProcesarSNPBasico(fileDetail, snpArray, 0+6, totalSNP+6);
                     basico.procesargrupoSNP();
+                    ProcesarSNPRestoIndividuos resto = new ProcesarSNPRestoIndividuos(fileDetail, snpArray, 0+6, totalSNP+6);
+                    resto.procesargrupoSNP();
                     control++;
                 }
             }

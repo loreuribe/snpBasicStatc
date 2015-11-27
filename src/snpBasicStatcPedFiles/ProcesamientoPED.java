@@ -99,9 +99,9 @@ public class ProcesamientoPED extends Thread{
                 break;
         }
 
-        String[] genotipos = new String[4];
-        int[] totales = new int[4];
-        double[] frecuencias = new double[4];
+        String[] genotipos = new String[4];    Arrays.fill( genotipos, "NA" );
+        int[] totales = new int[4];            Arrays.fill( totales, 0 );
+        double[] frecuencias = new double[4];  Arrays.fill( frecuencias, 0.0 );
 
         /*
         if ( flagHomoMay  &&  flagHomoMen  &&  flagHetero  &&  flagNA ){
@@ -274,9 +274,14 @@ public class ProcesamientoPED extends Thread{
         
         
         
-        String[] arregloAlelos = new String[]{ alelo1, alelo2 };
-        int[] arregloTotales = new int[]{ total1, total2 };
-        double[] arregloFrecuencias = new double[]{ frecuencias1, frecuencias2 };        
+        String[] arregloAlelos = new String[2];      Arrays.fill( arregloAlelos, "NA" );
+        int[] arregloTotales = new int[2];           Arrays.fill( arregloTotales, 0 );
+        double[] arregloFrecuencias = new double[2]; Arrays.fill( arregloFrecuencias, 0.0 );
+        
+        arregloAlelos[0] = alelo1;             arregloAlelos[1] = alelo2;
+        arregloTotales[0] = total1;            arregloTotales[1] = total2;
+        arregloFrecuencias[0] = frecuencias1;  arregloFrecuencias[1] = frecuencias2;
+        
         //Se crea el JSONObject con el resultado del Cálculo del método
         //Este JSONObject se agrega al JSONArray con llave "Prop" dentro del snpJSONArray
         // {
@@ -331,10 +336,10 @@ public class ProcesamientoPED extends Thread{
                 break;
         }
         
-        String[] arregloGenotipos = new String[5];
-        Object[] arregloObservados = new Object[5];     Arrays.fill( arregloObservados, "" );
-        Object[] arregloEsperados = new Object[5];      Arrays.fill( arregloEsperados, "" );
-        Object[] arregloChi2 = new Object[5];           Arrays.fill( arregloChi2, "" );
+        String[] arregloGenotipos = new String[5];      Arrays.fill( arregloGenotipos, "NA" );
+        Object[] arregloObservados = new Object[5];     Arrays.fill( arregloObservados, "NA" );
+        Object[] arregloEsperados = new Object[5];      Arrays.fill( arregloEsperados, "NA" );
+        Object[] arregloChi2 = new Object[5];           Arrays.fill( arregloChi2, "NA" );
         
         if ( flagHomoMay ){
             arregloGenotipos[0] =  snpRef.homocigotoMayorFr.getTipo();     arregloGenotipos[3] =  snpRef.homocigotoMayorFr.getTipo().substring(0, 1);
@@ -654,7 +659,6 @@ public class ProcesamientoPED extends Thread{
             try {
                 FileWriter writer = new FileWriter(new File(ruta), true);
                 if ( i == tamañoSNPS ){
-                    System.out.println( i );
                     writer.append( snpJsonObject.toString() );
                 }
                 else{
